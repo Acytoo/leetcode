@@ -1,0 +1,5 @@
+# ignore .out for c and c++, .class for java, and *~ for emacs auto backup
+
+*.out
+*.class
+*~
