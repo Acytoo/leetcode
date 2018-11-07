@@ -1,10 +1,12 @@
-public class hello {
+public class template {
     public static void main(String[] args) {
-	int a[] = {1,1,1, 2,2, 3,4,5,6,6};
+	int a[] = {1,1,2, 2, 3, 4, 5, 6, 7, 7, 8, 9, 9, 9, 9, 9};
 	ListNode head = array2list(a, a.length);
         Solution s = new Solution();
 	showList(head);
 	head = s.deleteDuplicates(head);
+	
+	
 	showList(head);
 
     }
@@ -33,51 +35,30 @@ public class hello {
 
 }
 
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+	if (head == null || head.next == null)
+	    return head;
+	ListNode slow = head, fast = head.next;
+	while (fast != null) {
+	    if (slow.val == fast.val) {
+		slow.next = fast.next;
+		fast = slow.next;
+	    }
+	    else {
+		slow = fast;
+		fast = fast.next;
+	    }
+	}
+	return head;
+    }
+}
+
+
 
 // Definition for singly-linked list.
 class ListNode {
      int val;
      ListNode next;
      ListNode(int x) { val = x; }
-}
-/*
-  head, pre, slow, fast, null 
- pre == null || not null
- */
-class Solution {
-    public ListNode deleteDuplicates(ListNode head) {
-	if (head == null || head.next == null)
-	    return head;
-    
-	ListNode pre, slow, fast;
-	ListNode fakeHead = new ListNode(0);
-	fakeHead.next = head;
-	pre = fakeHead;
-	slow = head;
-	fast = head.next;
-	boolean same = false;
-
-	while (fast != null) {
-	    if (slow.val == fast.val) {
-		fast = fast.next;
-		if (fast == null) {
-		    pre.next = null;
-		    break;
-		}
-		same = true;
-		continue;
-	    }
-	    if (same) {
-		pre.next = fast;
-		slow = fast;
-		fast = fast.next;
-		same = false;
-		continue;
-	    }
-	    pre = slow;
-	    slow = fast;
-	    fast = fast.next;
-	}
-	return fakeHead.next;
-    }
 }

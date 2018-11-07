@@ -1,10 +1,12 @@
-public class hello {
+public class removeElements {
     public static void main(String[] args) {
-	int a[] = {1,1,1, 2,2, 3,4,5,6,6};
+	int a[] = {1,2,1,2};
 	ListNode head = array2list(a, a.length);
         Solution s = new Solution();
 	showList(head);
-	head = s.deleteDuplicates(head);
+	head = s.removeElements(head, 2);
+	
+	
 	showList(head);
 
     }
@@ -33,51 +35,45 @@ public class hello {
 
 }
 
+class Solution {
+    public ListNode removeElements(ListNode head, int val) {
+	//	ListNode newHead = head;
+	while (head != null && head.val == val)
+	    head = head.next;
+	if (head == null || head.next == null)
+	    return head;
+	
+	ListNode slow, fast;
+	boolean same = false;
+	slow = head;
+	fast = head.next;
+	while (fast != null) {
+	    if (fast.val == val) {
+		fast = fast.next;
+		same = true;
+		continue;
+	    }
+	    if (same) {
+		slow.next = fast;
+		slow = slow.next;
+		fast = fast.next;
+		same = false;
+		continue;
+	    }
+	    slow = fast;
+	    fast = fast.next;
+	}
+	if (same)
+	    slow.next = fast;
+	return head;
+    }
+}
+
+
 
 // Definition for singly-linked list.
 class ListNode {
      int val;
      ListNode next;
      ListNode(int x) { val = x; }
-}
-/*
-  head, pre, slow, fast, null 
- pre == null || not null
- */
-class Solution {
-    public ListNode deleteDuplicates(ListNode head) {
-	if (head == null || head.next == null)
-	    return head;
-    
-	ListNode pre, slow, fast;
-	ListNode fakeHead = new ListNode(0);
-	fakeHead.next = head;
-	pre = fakeHead;
-	slow = head;
-	fast = head.next;
-	boolean same = false;
-
-	while (fast != null) {
-	    if (slow.val == fast.val) {
-		fast = fast.next;
-		if (fast == null) {
-		    pre.next = null;
-		    break;
-		}
-		same = true;
-		continue;
-	    }
-	    if (same) {
-		pre.next = fast;
-		slow = fast;
-		fast = fast.next;
-		same = false;
-		continue;
-	    }
-	    pre = slow;
-	    slow = fast;
-	    fast = fast.next;
-	}
-	return fakeHead.next;
-    }
 }
