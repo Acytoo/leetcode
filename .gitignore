@@ -3,3 +3,12 @@
 *.out
 *.class
 *~
+# test.* for unnecessary code
+test.*
+
+# next line for emacs 
+\#*#
+
+\#*
+
+*\#*
