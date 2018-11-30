@@ -7,7 +7,7 @@ static int x =  []() {std::ios::sync_with_stdio(false); std::cin.tie(0); return 
 class Solution {
 public:
   int removeDuplicates(vector<int>& nums) {
-    int currentNum = 0, dup = 0, count = 0, lastNum = -10;
+    int count = 0, lastNum = -10;
     for (auto iter = nums.cbegin(); iter != nums.cend();) {
       if (*iter != lastNum) {
 	count = 0;
