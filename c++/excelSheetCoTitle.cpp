@@ -10,21 +10,23 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-// ~~~ 27 ---> 10
+
 class Solution {
 public:
-  int titleToNumber(string s) {
-    int res = 0;
-    for (int j = 0, i = s.size() - 1; i != -1; --i, ++j) {
-      res += (s[i] - 64) * pow(26, j); 
+  string convertToTitle(int n) {
+    string res;
+    while (n > 0) {
+      --n;
+      res += 'A' + n % 26;
+      n /= 26;
     }
+    reverse(res.begin(), res.end());
     return res;
   }
 };
 
 int main() {
   Solution s;
-  string a = "ZZZ";
-  cout << s.titleToNumber(a) << endl;
+  cout << s.convertToTitle(702) << endl;
   return 0;
 }
