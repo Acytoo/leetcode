@@ -15,23 +15,23 @@ class Solution {
 public:
   bool validMountainArray(vector<int>& A) {
     int n = A.size();
-    if (n <= 2)
+    if (n < 3)
       return false;
-    if (A[1] < A[0])
+    int i = 0, lastIter = n - 1;
+    while (i != lastIter && A[i] < A[++i]);
+    --i;
+    // cout << i << endl;
+    if (i == 0 || A[i] == A[i-1])
       return false;
-    auto iter = A.begin();
-    while (*iter < *++iter);
-    if (iter == A.end())
-      return false;
-    while (*iter > *++iter);
-    if (iter != A.end())
-      return false;
+    while (i != lastIter)
+      if (A[i] <= A[++i])
+        return false;
     return true;
   }
 };
 
 int main() {
-  vector<int> a = {3,6,5};
+  vector<int> a = {3,2,1};
   Solution s;
   cout << s.validMountainArray(a) << endl;
   return 0;
