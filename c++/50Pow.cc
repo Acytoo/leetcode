@@ -59,6 +59,6 @@ public:
 
 int main() {
   Solution s;
-  cout << s.myPow(2.0, -2147483648) << endl;
+  cout << s.myPow(2.0, 2) << endl;
   return 0;
 }
