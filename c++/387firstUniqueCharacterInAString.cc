@@ -19,13 +19,22 @@ static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 
 class Solution {
 public:
-  bool canWinNim(int n) {
-    return n % 4;
+  int firstUniqChar(string s) {
+    vector<int> chars(26, 0);
+    for (const char& c : s) {
+      ++chars[c-'a'];
+    }
+    for (int i=0, stop=s.size(); i<stop; ++i) {
+      if (chars[s[i]-'a'] == 1)
+        return i;
+    }
+    return -1;
   }
 };
 
 int main() {
   Solution s;
-  
+  string a = "leetcodeleet";
+  cout << s.firstUniqChar(a) << endl;
   return 0;
 }
