@@ -34,7 +34,6 @@ class Solution {
       key.pop_back();
       res[i++] = {l, min(l+3, r)};
     }
-
     return res;
   }
 };
