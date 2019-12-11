@@ -6,5 +6,5 @@ filename=$1
 pos=`expr index "$filename" .`
 outputname=''${filename:0:$pos-1}'.out'
 
-g++ ${filename} -o ${outputname}
+g++ -std=c++11 ${filename} -o ${outputname}
 './'${outputname}''
