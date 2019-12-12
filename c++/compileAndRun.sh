@@ -2,9 +2,13 @@
 
 # echo "Compile the single cc file and then run the result if exist"
 
-filename=$1
-pos=`expr index "$filename" .`
-outputname=''${filename:0:$pos-1}'.out'
+fullpath=$1
+filename=$(basename -- "$fullpath")
+outputname=''$filename'.out'
 
-g++ -std=c++11 ${filename} -o ${outputname}
+g++ -std=c++11 ${fullpath} -o ${outputname}
 './'${outputname}''
+
+# delete compiled file
+rm ${outputname}
+
