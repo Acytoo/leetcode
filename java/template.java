@@ -6,8 +6,3 @@ public class J1234Template {
 
   }
 }
-
-class Solution {
-
-
-}
