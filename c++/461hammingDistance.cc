@@ -18,7 +18,31 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
+class Solution {
+ public:
+  int hammingDistance(int x, int y) {
+    int z = x ^ y;
+    int res = 0;
+    while (z != 0) {
+      z &= (z-1);
+      res++;
+    }
+    return res;
+  }
+};
 
+class Solution1 {
+ public:
+  int hammingDistance(int x, int y) {
+    int z = x ^ y;
+    int res = 0;
+    while (z > 0) {
+      res += (z&1);
+      z >>= 1;
+    }
+    return res;
+  }
+};
 
 int main() {
   Solution s;
