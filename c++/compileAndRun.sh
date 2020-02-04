@@ -6,7 +6,7 @@ fullpath=$1
 filename=$(basename -- "$fullpath")
 outputname=''$filename'.out'
 
-g++ -std=c++11 ${fullpath} -o ${outputname}
+g++ -std=c++17 ${fullpath} -o ${outputname}
 './'${outputname}''
 
 # delete compiled file
