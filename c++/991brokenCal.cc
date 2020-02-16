@@ -14,13 +14,18 @@
 #include <set>
 #include <functional>
 #include <bitset>
-#include <numeric>
-
 
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-
+class Solution {
+ public:
+  int brokenCalc(int X, int Y) {
+    if (Y <= X)
+      return X-Y;
+    return 1 + brokenCalc(X, (Y&1)? Y+1: Y>>1);
+  }
+};
 
 int main() {
   Solution s;
