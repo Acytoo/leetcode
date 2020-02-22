@@ -42,6 +42,33 @@ class Solution1 {
   }
 };
 
+class Solution {
+ public:
+  // merge sort
+  vector<int> sortArray(vector<int>& nums) {
+    vector<int> t(nums.size());
+    function<void(int, int)> merge_sort = [&] (int l, int r) {
+                                            if (r <= l+1)
+                                              return ;
+                                            int m = (l + r) >> 1;
+                                            merge_sort(l, m);
+                                            merge_sort(m, r);
+                                            int i1 = l;
+                                            int i2 = m;
+                                            int idx = 0;
+                                            while (i1<m || i2<r) {
+                                              if (i2==r || (i1<m && nums[i1]<nums[i2]))
+                                                t[idx++] = nums[i1++];
+                                              else
+                                                t[idx++] = nums[i2++];
+                                            }
+                                            std::copy(t.begin(), t.begin()+idx, nums.begin()+l);
+                                          };
+    merge_sort(0, nums.size());
+    return nums;
+  }
+};
+
 int main() {
   Solution s;
   
