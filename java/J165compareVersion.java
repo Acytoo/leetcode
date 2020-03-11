@@ -1,4 +1,4 @@
-public class again {
+public class J165compareVersion {
     public static void main(String[] args) {
 	String a = "hello, this  is next world";
 	Solution s = new Solution();
