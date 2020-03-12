@@ -15,7 +15,7 @@
 #include <functional>
 #include <bitset>
 #include <numeric>
-
+#include <deque>
 
 using namespace std;
 
