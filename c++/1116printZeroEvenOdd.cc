@@ -12,6 +12,7 @@
 #include <unordered_set>
 #include <map>
 #include <set>
+#include <mutex>
 
 using namespace std;
 
@@ -56,7 +57,7 @@ class ZeroEvenOdd {
 };
 
 int main() {
-  Solution s;
+  ZeroEvenOdd z(3);
   
   return 0;
 }

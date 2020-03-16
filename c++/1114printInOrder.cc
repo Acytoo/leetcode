@@ -12,6 +12,7 @@
 #include <unordered_set>
 #include <map>
 #include <set>
+#include <mutex>
 
 using namespace std;
 
@@ -49,7 +50,7 @@ class Foo {
 };
 
 int main() {
-  Solution s;
+  Foo f;
   
   return 0;
 }
