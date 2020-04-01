@@ -1,4 +1,4 @@
-public class hello {
+public class J7reverseInteger {
     public static void main(String[] args) {
 	Solution s = new Solution();
 	int a = 951;
