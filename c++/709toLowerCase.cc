@@ -10,21 +10,20 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-//  many solutions
-class Solution {
-public:
+class Solution_ {
+ public:
   string toLowerCase(string str) {
-    int x = 'a' - 'A';
-    for (auto i = str.begin(), stop = str.end(); i != stop; ++i)
-      if ('A' <= *i && 'Z' >= *i)
-        *i = *i + x;
+    const int diff = 'a' - 'A';
+    for (char& c: str)
+      if ('A'<=c && c<='Z')
+        c += diff;
     return str;
   }
 };
+
 int main() {
   Solution s;
   string a = "asdAdfgBdfgCD";
-
   cout << s.toLowerCase(a) << endl;
   return 0;
 }

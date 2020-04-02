@@ -23,7 +23,6 @@ class Solution {
 public:
   void setZeroes(vector<vector<int>>& matrix) {
     int i=0, j=0, m = matrix.size(), n = matrix[0].size();
-    // int flag = matrix[0][0];
     bool colFlag = false, rowFlag = false;
 
     for (i=0; i < m; ++i) {
@@ -38,29 +37,16 @@ public:
         }
       }
     }
-    // showMatrix(matrix);
-    // cout << "zeros" << endl;
-
     for (i = 1; i < m; ++i)
       if (matrix[i][0] == 0)
         for (j = 1; j < n; ++j)
           matrix[i][j] = 0;
-    // showMatrix(matrix);
-    // cout << "1" << endl;
 
     for (j=1; j < n; ++j)
       if (matrix[0][j] == 0)
         for (i=1; i < m; ++i)
           matrix[i][j] = 0;
-    // showMatrix(matrix);
-    // cout << "2" << endl;
 
-    // if (!flag) {
-    //   for (j=0; j < n; ++j)
-    //     matrix[0][j] = 0;
-    //   for (i=0; i < m; ++i)
-    //     matrix[i][0] = 0;
-    // }
     if (rowFlag)
         for (j=0; j < n; ++j)
           matrix[0][j] = 0;
@@ -71,26 +57,6 @@ public:
   }
 };
 
-// class Solution1 {
-// public:
-//   void setZeroes(vector<vector<int>>& matrix, int row, int col, int rows, int cols) {
-//     for (int i=0; i < rows, ++i) {
-//       if (matrix[i][col] == 0)
-//         setZeroes(matrix, i, col, rows, cols);
-//       if (matrix
-
-//   }
-//   void setZeroes(vector<vector<int>>& matrix) {
-//     int row = 0, col = 0, rows = matrix.size(), cols = matrix[0].size();
-//     for (row = 0; row != rows; ++row)
-//       for (col = 0; col != cols; ++col)
-//         if (matrix[row][col] == 0)
-//           setZeroes(matrix, row, col, rows, cols);
-
-//   }
-
-
-// };
 
 int main() {
   Solution s;

@@ -3,10 +3,8 @@
 
 using namespace std;
 
-
-
 class Solution {
-public:
+ public:
   int roman_switch(char a) {
     if (a == 'I')
       return 1;
@@ -27,9 +25,7 @@ public:
     for (int i=0; i < s.size(); i++) {
       t2 = roman_switch(s[i]);
       res += t2;
-      if (t1 < t2) {
-	res -= t1 << 1;
-      }
+      if (t1 < t2) res -= t1 << 1;
       t1 = t2;
     }
     return res;
@@ -41,7 +37,5 @@ int main() {
   Solution s;
   int res = s.romanToInt("MCMXCIV");
   cout << res << endl;
-  
-
   return 0;
 }
