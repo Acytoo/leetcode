@@ -14,9 +14,7 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-
-
- // * Definition for singly-linked list.
+// * Definition for singly-linked list.
 struct ListNode {
   int val;
   ListNode *next;
@@ -26,20 +24,34 @@ struct ListNode {
 class Solution {
  public:
   ListNode* reverseList(ListNode* head) {
+    ListNode *pre = nullptr, *cur = head;
+    while (cur) {
+      ListNode *next = cur->next;
+      cur->next = pre;
+      pre = cur;
+      cur = next;
+    }
+    return pre;
+  }
+};
+
+class Solution2 {
+ public:
+  ListNode* reverseList(ListNode* head) {
     stack<int> s;
     while (head) {
       s.push(head->val);
       head = head->next;
     }
-    ListNode* par = new ListNode(-1);
-    ListNode* res = par;
+    ListNode dummy (-1);
+    ListNode* res = &dummy;
     while (!s.empty()) {
-      ListNode* cur = new ListNode(s.top());
+      ListNode *cur = new ListNode(s.top());
       s.pop();
-      par->next = cur;
-      par = par->next;
+      res->next = cur;
+      res = res->next;
     }
-    return res->next;
+    return dummy.next;
   }
 };
 
@@ -47,14 +59,15 @@ class Solution {
 class Solution1 {
  public:
   ListNode* reverseList(ListNode* head) {
-    ListNode* root = new ListNode(-1);
+    ListNode dummy (-1);
+    ListNode *new_head = &dummy;
     while (head) {
-      ListNode* tmp = new ListNode(head->val);
-      tmp->next = root->next;
-      root->next = tmp;
+      ListNode *tmp = new ListNode(head->val);
+      tmp->next = new_head->next;
+      new_head->next = tmp;
       head = head->next;
     }
-    return root->next;
+    return dummy.next;
   }
 };
 

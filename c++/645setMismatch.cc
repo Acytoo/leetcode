@@ -13,27 +13,27 @@ x
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 
 class Solution {
-public:
+ public:
   vector<int> findErrorNums(vector<int>& nums) {
     int n = nums.size();
     bool flag[++n] = {0};
     vector<int> res(2);
     for (int i : nums) {
       if (flag[i])
-	res[0] = i;
+        res[0] = i;
       flag[i] = true;
     }
     for (int i=1; i != n; ++i)
       if (!flag[i]) {
-	res[1] = i;
-	break;
+        res[1] = i;
+        break;
       }
     return res;
   }
 };
 
 class Solution1 {
-public:
+ public:
   vector<int> findErrorNums(vector<int>& nums) {
     set<int> mySet;
     pair<set<int>::iterator, bool> ret;
@@ -42,7 +42,7 @@ public:
       ret = mySet.insert(*iter);
       sum += *iter;
       if (!ret.second)
-	dup = *iter;
+        dup = *iter;
     }
     return {dup, (1+n)*n/2 - sum + dup};
   }
