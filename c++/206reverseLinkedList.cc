@@ -21,8 +21,9 @@ struct ListNode {
   ListNode(int x) : val(x), next(NULL) {}
 };
 
-class Solution {
+class Solution3 {
  public:
+  // Iteration
   ListNode* reverseList(ListNode* head) {
     ListNode *pre = nullptr, *cur = head;
     while (cur) {
@@ -32,6 +33,18 @@ class Solution {
       cur = next;
     }
     return pre;
+  }
+};
+
+class Solution {
+ public:
+  // Recursion
+  ListNode* reverseList(ListNode* head) {
+    if (!head || !head->next) return head;
+    ListNode *new_head = reverseList(head->next);
+    head->next->next = head;
+    head->next = nullptr;
+    return new_head;
   }
 };
 

@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
-public:
+ public:
   vector<int> plusOne(vector<int>& digits) {
     reverse(digits.begin(), digits.end());
     vector <int>::iterator iter = digits.begin();
@@ -12,10 +12,10 @@ public:
       *iter = 0;
       iter++;
       if (iter == digits.end()) {
-	*iter = 0;
-	digits.push_back(1);
-	reverse(digits.begin(), digits.end());
-	return digits;
+        *iter = 0;
+        digits.push_back(1);
+        reverse(digits.begin(), digits.end());
+        return digits;
       }
     }
     *iter = *iter + 1;
