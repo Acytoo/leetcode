@@ -16,8 +16,10 @@ public:
     int j = A.size(), i = -1;
     vector<int> res(j);
     for (auto iter = A.begin(); iter != A.end(); ++iter) {
-      if (*iter % 2 == 0) res[++i] = *iter;
-      else res[--j] = *iter;
+      if (*iter % 2 == 0)
+        res[++i] = *iter;
+      else
+        res[--j] = *iter;
     }
     return res;
   }
@@ -28,8 +30,10 @@ public:
   vector<int> sortArrayByParity(vector<int>& A) {
     vector<int> even, odd;
     for (auto iter = A.begin(); iter != A.end(); ++iter) {
-      if (*iter % 2 == 0) even.push_back(*iter);
-      else odd.push_back(*iter);
+      if (*iter % 2 == 0)
+        even.push_back(*iter);
+      else
+        odd.push_back(*iter);
     }
     even.insert(even.end(), odd.begin(), odd.end());
     return even;
