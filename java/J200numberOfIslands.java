@@ -10,28 +10,23 @@ public class J200numberOfIslands {
 
 class Solution {
   public int numIslands(char[][] grid) {
-    // Brute force
     int res = 0;
-    for (int i=0; i<grid.length; ++i) {
-      for (int j=0; j<grid[i].length;  ++j) {
-        // find the island and convert the island to '0'
+    for (int i=0; i<grid.length; ++i)
+      for (int j=0; j<grid[i].length;  ++j)
         if (grid[i][j] == '1') {
-          // convert the conneted grid to '0' and res++
           ++res;
-          bfs(grid, i, j);
+          dfs(grid, i, j);
         }
-      }
-    }
     return res;
   }
 
-  private void bfs(char[][] grid, int i, int j) {
-    if (i<0 || i>=grid.length || j<0 || j>=grid[i].length || grid[i][j] == '0')
+  private void dfs(char[][] grid, int i, int j) {
+    if (i<0 || i>=grid.length || j<0 || j>=grid[i].length || grid[i][j]=='0')
       return;
     grid[i][j] = '0';
-    bfs(grid, i+1, j);
-    bfs(grid, i-1, j);
-    bfs(grid, i, j+1);
-    bfs(grid, i, j-1);
+    dfs(grid, i+1, j);
+    dfs(grid, i-1, j);
+    dfs(grid, i, j+1);
+    dfs(grid, i, j-1);
   }
 }
