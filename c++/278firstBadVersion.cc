@@ -4,25 +4,25 @@ using namespace std;
 static int x = [](){ std::ios::sync_with_stdio(false); std::cin.tie(0); return 0; } ();
 // Forward declaration of isBadVersion API.
 bool isBadVersion(int version) {
-
   return version > 4;
 }
 class Solution {
-public:
+ public:
   int firstBadVersion(int n) {
-    int start = 1;
-    while (start < n) {
-      int mid = start + (n-start) / 2;
-      if (!isBadVersion(mid))
-	start = mid + 1;
-      else n = mid;            
-    }        
-    return start;      
+    long l = 1;
+    while (l < n) {
+      int m = (l + n) >> 1;
+      if (!isBadVersion(m))
+        l = m + 1;
+      else
+        n = m;
+    }
+    return l;
   }
 };
 
 class Solution1 {
-public:
+ public:
   int firstBadVersion(int n) {
     int i=1;
     while (isBadVersion(i++));
