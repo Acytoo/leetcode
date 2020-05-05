@@ -16,8 +16,18 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-
 class Solution {
+ public:
+  int firstUniqChar(string s) {
+    vector<int> chars('z'+1);
+    for (const char& c : s) ++chars[c];
+    for (int i=0, stop=s.size(); i<stop; ++i)
+      if (chars[s[i]] == 1) return i;
+    return -1;
+  }
+};
+
+class Solution1 {
 public:
   int firstUniqChar(string s) {
     vector<int> chars(26, 0);
