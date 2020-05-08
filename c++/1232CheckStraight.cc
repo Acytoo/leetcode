@@ -10,25 +10,20 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-
 class Solution {
 public:
   bool checkStraightLine(vector<vector<int>>& c) {
-    int n = c.size();
-    // cout << n << endl;
-    if (n == 2)
-      return true;
-    double k = (double)(c[1][1] - c[0][1]) / (c[1][0] - c[0][0]);
-    // cout << k << endl;
-    for (int i=2; i<n; ++i) {
-      double temp = (double)(c[i][1] - c[0][1]) / (c[i][0] - c[0][0]);
-      if (temp != k)
+    const int n = c.size();
+    if (n == 2) return true;
+
+    const double k = static_cast<double>(c[1][1] - c[0][1]) / (c[1][0] - c[0][0]);
+    for (int i = 2; i < n; ++i)
+      if (k != static_cast<double>(c[i][1] - c[0][1]) / (c[i][0] - c[0][0]))
         return false;
-    }
+
     return true;
   }
 };
-
 
 int main() {
   Solution s;
