@@ -8,29 +8,27 @@ static int x = [] () {std::ios::sync_with_stdio(false); std::cin.tie(0); return 
 
 // O(1) space
 class Solution {
-public:
+ public:
   int findDuplicate(vector<int>& nums) {
-    for (int i=0; i < nums.size(); i++) {
-      if (nums[abs(nums[i])] > 0) {
+    for (int i=0; i < nums.size(); i++)
+      if (nums[abs(nums[i])] > 0)
         nums[abs(nums[i])] = - nums[abs(nums[i])];
-      }
       else
-	return abs(nums[i]);
-    }
+        return abs(nums[i]);
     return -1;
   }
 };
 
 // not O(1) space
 class Solution1 {
-public:
+ public:
   int findDuplicate(vector<int>& nums) {
     set<int> myset;
     pair<set<int>::iterator,bool> ret;
     for (auto it = nums.cbegin(); it != nums.cend(); it++) {
       ret = myset.insert(*it);
       if (ret.second == false)
-	return *it;
+        return *it;
     }
     return -1;
   }
