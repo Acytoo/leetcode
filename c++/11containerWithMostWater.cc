@@ -5,14 +5,15 @@ using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
-public:
+ public:
   int maxArea(vector<int>& height) {
-    int head = 0, tail = height.size()-1, area = (tail-head) * min(height[head], height[tail]);
+    int head = 0, tail = height.size()-1,
+        area = (tail-head) * min(height[head], height[tail]);
     while (head < tail) {
       if (height[head] < height[tail])
-	++head;
+        ++head;
       else
-	--tail;
+        --tail;
       area = max(area, (tail-head) * min(height[head], height[tail]));
     }
     return area;
@@ -21,7 +22,7 @@ public:
 
 // Don't know why Solution1 won't pass, it gives the right answer when in debug mod and my local machine
 class Solution1 {
-public:
+ public:
   int bigger(int a, int b) {
     return a > b ? a : b;
   }
@@ -35,9 +36,9 @@ public:
     area = (tail-head) * smaller(*head, *tail);
     while (head < tail) {
       if (*head < *tail)
-	++head;
+        ++head;
       else
-	--tail;
+        --tail;
       area = bigger(area, (tail-head) * smaller(*head, *tail));
     }
     return area;

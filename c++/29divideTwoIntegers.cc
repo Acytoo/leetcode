@@ -3,17 +3,16 @@
 using namespace std;
 
 static int x = [](){ std::ios::sync_with_stdio(false); std::cin.tie(0); return 0; } ();
-
 class Solution {
-public:
+ public:
   int divide(int dividend, int divisor) {
     if (divisor == 1)
       return dividend;
     if (divisor == -1)
       if (dividend == INT_MIN)
-	return INT_MAX;
+        return INT_MAX;
       else
-	return -1 * dividend;
+        return -1 * dividend;
     
     bool positive = (dividend ^ divisor) > -1 ? true : false;
     long dend = labs(dividend);
@@ -88,15 +87,15 @@ public:
 };
 
 class Solution1 {
-public:
+ public:
   int divide(int dividend, int divisor) {
     if (divisor == 1)
       return dividend;
     if (divisor == -1)
       if (dividend == INT_MIN)
-	return INT_MAX;
+        return INT_MAX;
       else
-	return -1 * dividend;
+        return -1 * dividend;
     
     bool positive = (dividend ^ divisor) > -1 ? true : false;
     long dend = labs(dividend);

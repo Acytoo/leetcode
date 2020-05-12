@@ -2,18 +2,17 @@
 using namespace std;
 
 static int x = []() {std::ios::sync_with_stdio(false); cin.tie(0); return 0; }();
-
 class Solution {
-public:
+ public:
   int integerBreak(int n) {
     if (n < 4)
-      return n-1;
+      return n - 1;
     int res=1;
     while (n > 4) {
       res *= 3;
       n -= 3;
     }
-    return res*n;
+    return res * n;
   }
 };
 

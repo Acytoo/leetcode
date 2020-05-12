@@ -3,7 +3,7 @@ using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
-public:
+ public:
   bool isUgly(int num) {
     if (num <= 0) return false;
     while (num % 15 == 0) num /= 15;

@@ -6,14 +6,14 @@ using namespace std;
 static int x = [](){ std::ios::sync_with_stdio(false); std::cin.tie(0); return 0; } ();
 
 class Solution {
-public:
+ public:
   int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
     int res = -1, gasRest = 0, costMost = 0;
     for (int i = 0; i < gas.size(); i++){
       gasRest += gas[i]-cost[i];
       if (costMost > gasRest){
-	costMost = gasRest;
-	res = i;
+        costMost = gasRest;
+        res = i;
       }
     }
     if (gasRest < 0)
@@ -23,7 +23,7 @@ public:
 };
 
 class Solution1 {
-public:
+ public:
   int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
     int gTotal = 0, cTotal = 0, rest[gas.size()] = {0};
     vector <int> possible;
@@ -45,14 +45,14 @@ public:
       res = station;
       possible.pop_back();
       while (len > -1) {
-	gasAva += rest[station%gas.size()];
-	len--;
-	station++;
-	if (gasAva < 0)
-	  break;
+        gasAva += rest[station%gas.size()];
+        len--;
+        station++;
+        if (gasAva < 0)
+          break;
       }
       if (len == -1)
-	return res;
+        return res;
     }
     return possible.back();
   }

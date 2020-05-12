@@ -12,15 +12,14 @@ using namespace std;
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 
 class Solution {
-public:
+ public:
   bool buddyStrings(string A, string B) {
-    int i=0, j=-1, m=A.size(), n=B.size(), move=0;
-    if (m <= 1 || m != n)
-      return false;
+    int i = 0, j = -1, m = A.size(), n = B.size(), move = 0;
+    if (m <= 1 || m != n) return false;
 
     if (A == B) {
       int counts[26] = {0};
-      for (int iter=0; iter != m; ++iter) {
+      for (int iter = 0; iter != m; ++iter) {
         int temp = A[iter] - 'a';
         ++counts[temp];
         if (counts[temp] == 2)
@@ -44,7 +43,6 @@ public:
     }
     if (move && A == B)
       return true;
-    // cout << "move : " << move << " " << A << " " << B << endl;
     return false;
   }
 };

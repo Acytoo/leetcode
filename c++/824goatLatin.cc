@@ -12,7 +12,7 @@ using namespace std;
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 
 class Solution {
-public:
+ public:
   bool isVowel(char c) {
     if (c >= 'a')
       return (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u');

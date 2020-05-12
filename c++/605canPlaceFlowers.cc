@@ -10,17 +10,18 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-
 class Solution {
-public:
+ public:
   bool canPlaceFlowers(vector<int>& flowerbed, int n) {
-    if (n == 0)
-      return true;
+    if (n == 0) return true;
+
     int total = flowerbed.size(), t = total - 1, i = 0;
     while (n != 0 && i != total) {
-      if (flowerbed[i] == 0 && (i == 0 || flowerbed[i-1] == 0) && (i == t  || flowerbed[i+1] == 0)) {
-	  flowerbed[i] = 1;
-	  --n;
+      if (flowerbed[i] == 0 &&
+          (i == 0 || flowerbed[i - 1] == 0) &&
+          (i == t || flowerbed[i + 1] == 0)) {
+        flowerbed[i] = 1;
+        --n;
       }
       ++i;
     }

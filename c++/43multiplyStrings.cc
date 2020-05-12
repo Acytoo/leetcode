@@ -6,15 +6,15 @@ using namespace std;
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 // Thanks to https://leetcode.com/problems/multiply-strings/discuss/17646/Brief-C%2B%2B-solution-using-only-strings-and-without-reversal
 class Solution {
-public:
+ public:
   string multiply(string num1, string num2) {
     int l1 = num1.size(), l2 = num2.size();
     string ans(l1 + l2, '0');
     for (int i = l1 - 1; i >= 0; --i) {
       for (int j = l2 - 1; j >= 0; --j) {
-	int temp = i + j, sum = (num1[i] - '0') * (num2[j] - '0') + (ans[temp + 1] - '0');
-	ans[temp + 1] = sum % 10 + '0';
-	ans[temp] += sum / 10;
+        int temp = i + j, sum = (num1[i] - '0') * (num2[j] - '0') + (ans[temp + 1] - '0');
+        ans[temp + 1] = sum % 10 + '0';
+        ans[temp] += sum / 10;
       }
     }
     size_t startpos = ans.find_first_not_of("0");
@@ -31,9 +31,9 @@ public:
     for (int i = l1 - 1; 0 <= i; --i) {
       int carry = 0;
       for (int j = l2 - 1; 0 <= j; --j) {
-	int tmp = (sum[i + j + 1] - '0') + (num1[i] - '0') * (num2[j] - '0') + carry;
-	sum[i + j + 1] = tmp % 10 + '0';
-	carry = tmp / 10;
+        int tmp = (sum[i + j + 1] - '0') + (num1[i] - '0') * (num2[j] - '0') + carry;
+        sum[i + j + 1] = tmp % 10 + '0';
+        carry = tmp / 10;
       }
       sum[i] += carry;
     }

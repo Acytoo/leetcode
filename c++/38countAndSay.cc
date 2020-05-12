@@ -9,7 +9,6 @@
 #include <set>
 using namespace std;
 
-static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 //1 -> 11
 //11 -> 21
 //21 -> 1211
@@ -18,14 +17,12 @@ static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 //312211 -> 13112221
 //13112221 -> 1113213211
 //1113213211 -> 31131211131221
+static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
-public:
+ public:
   string countAndSay(int n) {
-
     string temp = "1", newTemp = "";
-
     while (n != 1) {
-
       char lastNum = temp[0];
       for (int i=0, stop = temp.size(); i != stop; ) {
         int countOfCurrent = 0;
@@ -36,19 +33,18 @@ public:
         if (i != stop)
           lastNum = temp[i];
         newTemp = newTemp + to_string(countOfCurrent) + temp[i-1];
-        // cout << newTemp << endl;
       }
       temp = newTemp;
       newTemp = "";
       --n;
-      // cout << " n " << endl;
     }
     return temp;
   }
 };
+
 //faster solution from leetCode
 class Solution1 {
-public:
+ public:
   string countAndSay(int n) {
     string res, temp;
     char val;

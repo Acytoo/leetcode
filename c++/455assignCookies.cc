@@ -5,21 +5,20 @@
 using namespace std;
 
 static int x = []() {std::ios::sync_with_stdio(false); cin.tie(0); return 0; }();
-
 class Solution {
-public:
+ public:
   int findContentChildren(vector<int>& g, vector<int>& s) {
     sort(g.begin(), g.end());
     sort(s.begin(), s.end());
     int i=0, j=0;
     while (i < g.size()) {
       while (j < s.size()) {
-	if (s[j] >= g[i]) {
-	  j++;
-	  i++;
-	  continue;
-	}
-	j++;
+        if (s[j] >= g[i]) {
+          j++;
+          i++;
+          continue;
+        }
+        j++;
       }
       return i > g.size() ? g.size() : i;
     }

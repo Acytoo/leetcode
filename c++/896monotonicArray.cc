@@ -10,32 +10,27 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-
 class Solution {
-public:
+ public:
   bool isMonotonic(vector<int>& A) {
-    int n = A.size();
-    if (n <= 2)
-      return true;
+    const int n = A.size();
+    if (n <= 2) return true;
     int i = 0, lastIter = n - 1;
+
     while (i != lastIter && A[i] == A[++i])
-    if (i == lastIter)
-      return true;
+      if (i == lastIter)
+        return true;
     --i;
     // i became the first iter of different values
-    // cout << i << endl;
 
     if (A[i] < A[++i]) {
-      while (i != lastIter) {
+      while (i != lastIter)
         if (A[i] > A[++i])
           return false;
-      }
-    }
-    else {
-      while (i != lastIter) {
+    } else {
+      while (i != lastIter)
         if (A[i] < A[++i])
-            return false;
-      }
+          return false;
     }
     return true;
   }

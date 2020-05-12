@@ -3,31 +3,29 @@
 using namespace std;
 
 static int x = [](){ std::ios::sync_with_stdio(false); std::cin.tie(0); return 0; } ();
-class Solution{
-public:
+class Solution {
+ public:
   vector<int> countBits(int num) {
     vector<int> res;
+    res.reserve(num + 1);
     res.push_back(0);
-    num++;
-    for (int i=1; i < num; i++)
-      res.push_back(res[i & (i - 1)]+1);
+    for (int i = 0; i < num; )
+      res.push_back(res[i & ++i] + 1);
     return res;
   }
-
 };
 
-class Solution1{
-public:
+class Solution1 {
+ public:
   vector<int> countBits(int num) {
     vector<int> res;
     res.push_back(0);
-    if (num < 1)
-      return res;
-    num++;
+    if (num < 1) return res;
+    ++num;
     int andRes = 0;
-    for (int i=1; i < num; i++) {
+    for (int i = 1; i < num; ++i) {
       andRes = i & (i - 1);
-      res.push_back(res[andRes]+1);
+      res.push_back(res[andRes] + 1);
     }
     return res;
   }

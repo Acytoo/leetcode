@@ -12,21 +12,25 @@ using namespace std;
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 
 class Solution {
-public:
-  string convertToTitle(int n) {
-    string res;
-    while (n > 0) {
-      --n;
-      res += 'A' + n % 26;
-      n /= 26;
+ public:
+  int fib(int N) {
+    if (N <= 1)
+      return N;
+    int t1 = 0, t2 = 1, t3 = 0, i = 2;
+    while (i <= N) {
+      t3 = t1 + t2;
+      t1 = t2;
+      t2 = t3;
+      ++i;
     }
-    reverse(res.begin(), res.end());
-    return res;
+    return t3;
   }
 };
 
 int main() {
   Solution s;
-  cout << s.convertToTitle(702) << endl;
+  int a;
+  while (cin >> a)
+    cout << s.fib(a) << endl;
   return 0;
 }

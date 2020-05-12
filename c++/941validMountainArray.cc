@@ -10,22 +10,17 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-
 class Solution {
-public:
+ public:
   bool validMountainArray(vector<int>& A) {
-    int n = A.size();
-    if (n < 3)
-      return false;
+    const int n = A.size();
+    if (n < 3) return false;
     int i = 0, lastIter = n - 1;
-    while (i != lastIter && A[i] < A[++i]);
+    while (i != lastIter && A[i] < A[++i]) continue;
     --i;
-    // cout << i << endl;
-    if (i == 0 || A[i] == A[i-1])
-      return false;
+    if (i == 0 || A[i] == A[i - 1]) return false;
     while (i != lastIter)
-      if (A[i] <= A[++i])
-        return false;
+      if (A[i] <= A[++i]) return false;
     return true;
   }
 };

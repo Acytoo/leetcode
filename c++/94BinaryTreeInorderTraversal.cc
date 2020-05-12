@@ -11,9 +11,9 @@ struct TreeNode {
 };
 
 class Solution {
-private:
+ private:
   vector<int> res;
-public:
+ public:
   vector<int> inorderTraversal(TreeNode* root) {
     if (root == NULL)
       return {};
