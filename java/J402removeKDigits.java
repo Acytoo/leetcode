@@ -26,7 +26,7 @@ class Solution {
 
     Stack<Character> stack = new Stack<>();
     int i = 0;
-    while (i < n) {  // loop throught num
+    while (i < n) {
       while (k>0 && !stack.isEmpty() && num.charAt(i) < stack.peek()) {
         stack.pop();
         --k;
