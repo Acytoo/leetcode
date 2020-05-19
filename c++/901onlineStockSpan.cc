@@ -27,6 +27,29 @@ static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class StockSpanner {
  public:
   StockSpanner() {
+    dp_.clear();
+    prices_.clear();
+  }
+
+  int next(int price) {
+    if (prices_.empty() || price < prices_.back()) {
+      prices_.emplace_back(price);
+      dp_.emplace_back(1);
+      return 1;
+    }
+    int i = dp_.size() - 1;
+    while (i >= 0 && prices_[i] <= price) i -= dp_[i];
+    dp_.emplace_back(dp_.size() - i);
+    prices_.emplace_back(price);
+    return dp_.back();
+  }
+ private:
+  vector<int> dp_, prices_;
+};
+
+class StockSpanner1 {  // TLE
+ public:
+  StockSpanner() {
   }
 
   int next(int price) {
