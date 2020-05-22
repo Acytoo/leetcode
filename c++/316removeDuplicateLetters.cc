@@ -25,9 +25,9 @@ class Solution {
     int dic[26] = {0};
     bool used[26] = {false};
     for (char c: s)
-      ++dic[c-'a'];
+      ++dic[c - 'a'];
     for (char c: s) {
-      int cc = c-'a';
+      int cc = c - 'a';
       --dic[cc];
       if (res.empty()) {
         res.push_back(c);
@@ -36,8 +36,8 @@ class Solution {
       }
       if (used[cc])
         continue;
-      while (c<res.back() && dic[res.back()-'a']>0) {
-        used[res.back()-'a'] = false;
+      while (!res.empty() && c < res.back() && dic[res.back() - 'a'] > 0) {
+        used[res.back() - 'a'] = false;
         res.pop_back();
       }
       res.push_back(c);
