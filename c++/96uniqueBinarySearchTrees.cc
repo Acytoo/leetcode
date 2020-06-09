@@ -23,11 +23,11 @@ static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution1 {
  public:
   int numTrees(int n) {
-    vector<int> dp (n+1);
+    vector<int> dp (n + 1);
     dp[0] = dp[1] = 1;
-    for (int i=2; i<=n; ++i)
-      for (int j=0; j<i; ++j)
-        dp[i] += dp[j] * dp[i-j-1];
+    for (int i = 2; i <= n; ++i)
+      for (int j = 0; j < i; ++j)
+        dp[i] += dp[j] * dp[i - j - 1];
     return dp.back();
   }
 };
@@ -36,7 +36,7 @@ class Solution {
  public:
   int numTrees(int n) {
     long res = 1;
-    for (int i=n+1, stop=2*n; i<=stop; ++i)
+    for (int i = n + 1, stop = n << 1; i <= stop; ++i)
       res = res * i / (i - n);
     return res / (n + 1);
   }
