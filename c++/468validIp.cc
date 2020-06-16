@@ -23,7 +23,7 @@ static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
  public:
   string validIPAddress(string IP) {
-    if (IP.back()=='.' || IP.back()==':')
+    if (IP.empty() || IP.back()=='.' || IP.back()==':')
       return "Neither";
     istringstream ip (IP);
     int count = 0;
@@ -40,7 +40,6 @@ class Solution {
             return res;
           val = val*10 + tmpp;
         }
-        //cout << tmp << endl;
         if (val<0 || 255<val)
           return res;
       }
