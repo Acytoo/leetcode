@@ -21,7 +21,7 @@ static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 // Trie tree
 // coming soon ...
 // DFS
-class Solution; {
+class Solution {
  public:
   vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
     row_ = board.size();
