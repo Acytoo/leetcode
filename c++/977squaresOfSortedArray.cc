@@ -10,9 +10,17 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-
 class Solution {
-public:
+ public:
+  vector<int> sortedSquares(vector<int>& A) {
+    for (int &a: A) a = a * a;
+    sort(A.begin(), A.end());
+    return A;
+  }
+};
+
+class Solution1 {
+ public:
   vector<int> sortedSquares(vector<int>& A) {
     for (auto iter = A.begin(), stop = A.end(); iter != stop; ++iter)
       *iter = (*iter) * (*iter);
