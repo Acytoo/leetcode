@@ -4,21 +4,24 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   vector<int> plusOne(vector<int>& digits) {
     reverse(digits.begin(), digits.end());
     vector <int>::iterator iter = digits.begin();
-    while (*iter > 8) {
-      *iter = 0;
-      iter++;
+    int carry = 1;
+    while (carry) {
       if (iter == digits.end()) {
-        *iter = 0;
-        digits.push_back(1);
-        reverse(digits.begin(), digits.end());
-        return digits;
+        digits.emplace_back(1);
+        break;
       }
+      if (*iter == 9) {
+        *iter = 0;
+      } else {
+        ++(*iter);
+        carry = 0;
+      }
+      ++iter;
     }
-    *iter = *iter + 1;
     reverse(digits.begin(), digits.end());
     return digits;
   }
