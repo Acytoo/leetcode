@@ -38,13 +38,25 @@ class Node {
 class Solution {
  public:
   Node* connect(Node* root) {
-    if (!root || !root->left) return root;
-    root->left->next = root->right;
-    if (root->next)
-      root->right->next = root->next->left;
-    connect(root->left);
-    connect(root->right);
-    return root;
+    Node dummy (-1);
+    Node *cur = &dummy, *res = root;
+    while (root) {
+      if (root->left) {
+        cur->next = root->left;
+        cur = cur->next;
+      }
+      if (root->right) {
+        cur->next = root->right;
+        cur = cur->next;
+      }
+      root = root->next;
+      if (!root) {
+        cur = &dummy;
+        root = dummy.next;
+        dummy.next = nullptr;
+      }
+    }
+    return res;
   }
 };
 
