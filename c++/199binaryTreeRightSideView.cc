@@ -20,7 +20,26 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-class Solution {
+// Level order traversal
+class Solution {  // 2021-02-06
+ public:
+  vector<int> rightSideView(TreeNode* root) {
+    vector<int> res;
+    function<void(TreeNode*, int)> helper = [&] (TreeNode *cur, int dep) {
+      if (!cur) return ;
+      if (dep == res.size())
+        res.emplace_back(cur->val);
+      else
+        res[dep] = cur->val;
+      helper(cur->left, ++dep);
+      helper(cur->right, dep);
+    };
+    helper(root, 0);
+    return res;
+  }
+};
+
+class Solution1 {  // 2020-03-13
  public:
   vector<int> rightSideView(TreeNode* root) {
     vector<int> res;
