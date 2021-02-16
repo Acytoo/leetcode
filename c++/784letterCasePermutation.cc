@@ -16,10 +16,33 @@
 #include <bitset>
 
 using namespace std;
+
 // DFS O(n) = 2 ^ l (l is the number of letters in the given string)
+
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 // 'a' - 'A' = 32 = 2^5
 class Solution {
+ public:
+  vector<string> letterCasePermutation(string S) {
+    const int n = S.size();
+    vector<string> res;
+    function<void(int)> helper = [&] (const int idx) {
+      if (idx >= n) {
+        res.push_back(S);
+        return ;
+      }
+      helper(idx + 1);
+      if (!isalpha(S[idx])) return ;
+      S[idx] ^= 32;
+      helper(idx + 1);
+      S[idx] ^= 32;
+    };
+    helper(0);
+    return res;
+  }
+};
+
+class Solution1 {
  public:
   vector<string> letterCasePermutation(string S) {
     vector<string> res;
