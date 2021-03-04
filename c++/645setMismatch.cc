@@ -9,10 +9,29 @@
 #include <set>
 
 using namespace std;
-x
-static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 
+
+static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
+ public:
+  vector<int> findErrorNums(vector<int>& nums) {
+    bitset<10001> occs;
+    const int n = nums.size();
+    vector<int> res;
+    for (auto a : nums)
+      if (occs[a])
+        res.push_back(a);
+      else
+        occs[a] = 1;
+    for (int i = 1; i <= n; ++i)
+      if (!occs[i])
+        res.push_back(i);
+    return res;
+  }
+};
+
+
+class Solution_old {
  public:
   vector<int> findErrorNums(vector<int>& nums) {
     int n = nums.size();
