@@ -25,6 +25,30 @@ class Solution {
   vector<int> flipMatchVoyage(TreeNode* root, vector<int>& voyage) {
     vector<int> res;
     int idx = 0;
+    function<bool(TreeNode*)> preorder =
+        [&] (TreeNode *cur) {
+          if (!cur) return true;
+          if (cur->val != voyage[idx]) {
+            res = {-1};
+            return false;
+          }
+          if (cur->left && cur->left->val != voyage[idx + 1]) {
+            res.push_back(cur->val);
+            swap(cur->left, cur->right);
+          }
+          ++idx;
+          return preorder(cur->left) && preorder(cur->right);
+        };
+    preorder(root);
+    return res;
+  }
+};
+
+class SolutionOLD {
+ public:
+  vector<int> flipMatchVoyage(TreeNode* root, vector<int>& voyage) {
+    vector<int> res;
+    int idx = 0;
     function<void(TreeNode*)> preorder =
         [&] (TreeNode *cur) {
           if (!cur) return ;
@@ -41,6 +65,7 @@ class Solution {
           preorder(cur->right);
         };
     preorder(root);
+    if (!res.empty() && res.front() == -1) res = {-1};
     return res;
   }
 };
