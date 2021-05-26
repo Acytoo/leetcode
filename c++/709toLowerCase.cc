@@ -10,6 +10,14 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
+class Solution {
+ public:
+  string toLowerCase(string s) {
+    for_each(s.begin(), s.end(), [] (char &c) { if ('A' <= c && c <= 'Z') c ^= 32; });
+    return s;
+  }
+};
+
 class Solution_ {
  public:
   string toLowerCase(string str) {
