@@ -23,6 +23,55 @@ using namespace std;
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
  public:
+  int numMatchingSubseq(string_view s, vector<string>& words) {
+    const int n = s.size();
+    auto match = [&] (const string_view &t) -> bool {
+      const int m = t.size();
+      if (m > n) return false;
+      if (m == n) return t == s;
+      int i = 0, j = 0;
+      for ( ; i < m && j < n; ++j)
+        if (t[i] == s[j])
+          ++i;
+      return i == m;
+    };
+    int res = 0;
+    unordered_map<string_view, int> m;
+    for (const string_view &t : words) {
+      if (m.count(t)) {
+        res += m[t];
+      } else {
+        const int tmp = match(t);
+        m[t] = tmp;
+        res += tmp;
+      }
+    }
+    return res;
+  }
+};
+
+class Solution_TLE {
+ public:
+  int numMatchingSubseq(string_view s, vector<string>& words) {
+    const int n = s.size();
+    auto match = [&] (const string_view &t) -> bool {
+      const int m = t.size();
+      if (m > n) return false;
+      if (m == n) return t == s;
+      int i = 0, j = 0;
+      for ( ; i < m && j < n; ++j)
+        if (t[i] == s[j])
+          ++i;
+      return i == m;
+    };
+    int res = 0;
+    for (const string &t : words) res += match(t);
+    return res;
+  }
+};
+
+class Solution_old {
+ public:
   int numMatchingSubseq(string S, vector<string>& words) {
     // add a map as catch
     int res = 0, n = S.size();
