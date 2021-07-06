@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <vector>
 #include <string>
 #include <queue>
@@ -11,28 +12,32 @@
 #include <list>
 #include <unordered_set>
 #include <map>
-#include <set>
 #include <functional>
 #include <bitset>
 #include <numeric>
 #include <deque>
 #include <mutex>
+#include <utility>
+#include <memory>
+#include <cstring>
 
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
-  // Sliding window
  public:
-  int longestOnes(vector<int>& A, int K) {
-    int res = 0;
-    for (int slow = 0, fast = 0, stop = A.size(), zeros = 0; fast < stop; ++fast) {
-      if (A[fast] == 0) ++zeros;
-      while (zeros > K) {
-        if (A[slow] == 0) --zeros;
-        ++slow;
-      }
-      res = max(res, fast - slow + 1);
+  string removeDuplicates(string s) {
+    deque<char> dq;
+    for (const char c : s) {
+      if (!dq.empty() && c == dq.back())
+        dq.pop_back();
+      else
+        dq.push_back(c);
+    }
+    string res;
+    while (!dq.empty()) {
+      res += dq.front();
+      dq.pop_front();
     }
     return res;
   }

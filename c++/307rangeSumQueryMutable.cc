@@ -23,6 +23,51 @@ using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class NumArray {
+  // Fenwick Tree
+ public:
+  NumArray(vector<int>& nums): tree_(nums.size()), nums_(move(nums)) {
+    for (int i = 0, n = nums_.size(); i < n; ++i) tree_.update(i + 1, nums_[i]);
+  }
+
+  void update(int index, int val) {
+    tree_.update(index + 1, val - nums_[index]);
+    nums_[index] = val;
+  }
+
+  int sumRange(int left, int right) {
+    return tree_.query(right + 1) - tree_.query(left);
+  }
+ private:
+  class FenwickTree {
+   public:
+    FenwickTree(int n): sums_(n + 1, 0) { }
+
+    void update(int i, int delta) {
+      const int n = sums_.size();
+      while (i < n) {
+        sums_[i] += delta;
+        i += lowbit(i);
+      }
+    }
+
+    int query(int i) const {
+      int sum = 0;
+      while (i > 0) {
+        sum += sums_[i];
+        i -= lowbit(i);
+      }
+      return sum;
+    }
+   private:
+    vector<int> sums_;
+    static inline int lowbit(int x) { return x & (-x); }
+  };
+  FenwickTree tree_;
+  vector<int> nums_;
+};
+
+class NumArray1 {
+  // Blocks
  public:
   NumArray(vector<int>& nums) {
     if (nums.empty()) return ;
