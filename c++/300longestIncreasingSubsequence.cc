@@ -44,7 +44,23 @@ class Solution1 {
 
 
 
-// solution from leetcode 10 9 2 6 7 3 4 5 8 101
+// solution from leetcode 10 9 2 6 7 3 4 5 8 101 0
+
+class Solution2_ {
+ public:
+  int lengthOfLIS(vector<int> &nums) {
+    set<int> s;
+    for (auto a : nums) {
+      auto [it, flag] = s.insert(a);
+      if (flag) {
+        ++it;
+        if (it != s.end()) s.erase(it);
+      }
+    }
+    return s.size();
+  }
+};
+
 class Solution2 {
  public:
   int lengthOfLIS(vector<int>& nums) {
