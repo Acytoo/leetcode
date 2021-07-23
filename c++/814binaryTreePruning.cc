@@ -29,6 +29,22 @@ class Solution {
     root->right = pruneTree(root->right);
     if (root->val==1 || root->left || root->right)
       return root;
+    // delete root;
+    return nullptr;
+  }
+};
+
+class Solution_ {
+  // AC @ 02/29/2020 23:46
+  // WA @ 07/23/2021 17:58, Run time error heap-use-after-free
+ public:
+  TreeNode* pruneTree(TreeNode* root) {
+    if (!root)
+      return nullptr;
+    root->left = pruneTree(root->left);
+    root->right = pruneTree(root->right);
+    if (root->val==1 || root->left || root->right)
+      return root;
     delete root;
     return nullptr;
   }
