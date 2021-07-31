@@ -31,15 +31,15 @@ class Solution {
  public:
   TreeNode* sortedArrayToBST(vector<int>& nums) {
     function<TreeNode*(int, int)> helper = [&](int l, int r) -> TreeNode* {
-                                             if (r < l)
-                                               return nullptr;
-                                             int m = (l+r) >> 1;
-                                             TreeNode* root = new TreeNode(nums[m]);
-                                             root->left = helper(l, m-1);
-                                             root->right = helper(m+1, r);
-                                             return root;
-                                           };
-    TreeNode* res = helper(0, nums.size()-1);
+      if (r < l)
+        return nullptr;
+      int m = (l + r) >> 1;
+      TreeNode *root = new TreeNode(nums[m]);
+      root->left = helper(l, m - 1);
+      root->right = helper(m + 1, r);
+      return root;
+    };
+    TreeNode* res = helper(0, nums.size() - 1);
     return res;
   }
 };
@@ -47,7 +47,7 @@ class Solution {
 class Solution1 {
  public:
   TreeNode* sortedArrayToBST(vector<int>& nums) {
-    return helper(nums, 0, nums.size()-1);
+    return helper(nums, 0, nums.size() - 1);
   }
  private:
   TreeNode* helper(vector<int>& nums, int l, int r) {
@@ -55,8 +55,8 @@ class Solution1 {
       return NULL;
     int m = (l + r) >> 1;
     TreeNode* root = new TreeNode(nums[m]);
-    root->left = helper(nums, l, m-1);
-    root->right = helper(nums, m+1, r);
+    root->left = helper(nums, l, m - 1);
+    root->right = helper(nums, m + 1, r);
     return root;
   }
 };
