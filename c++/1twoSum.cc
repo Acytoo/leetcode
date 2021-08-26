@@ -17,6 +17,20 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
+class Solution {
+ public:
+  vector<int> twoSum(vector<int>& nums, int target) {
+    unordered_map<int, int> m;
+    for (int i = 0, n = nums.size(); i < n; ++i) {
+      const int needed = target - nums[i];
+      if (m.count(needed) != 0)
+        return {i, m[needed]};
+      else
+        m[nums[i]] = i;
+    }
+    return {-1, -1};
+  }
+};
 
 class Solution {
  public:
