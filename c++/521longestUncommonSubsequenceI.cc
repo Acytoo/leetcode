@@ -25,7 +25,7 @@ static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
  public:
   int findLUSlength(string a, string b) {
-    return a == b? -1: max(a.size(), b.size());
+    return a == b ? -1: max(a.size(), b.size());
   }
 };
 
