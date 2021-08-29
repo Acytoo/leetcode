@@ -45,6 +45,19 @@ class Solution {
   }
 };
 
+class Test {  // Only for combinations
+ public:
+  void findAllSubStrs(string s) {
+    for (int i = 0, n = s.size(), stop = (1 << n); i < stop; ++i) {
+      string t = "";
+      for (int j = 0; j < n; ++j)
+        if ((i >> j) & 1)
+          t += s[j];
+      cout << t << endl;
+    }
+  }
+};
+
 int main() {
   Solution s;
   
