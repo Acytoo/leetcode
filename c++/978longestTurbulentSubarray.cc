@@ -26,6 +26,28 @@ using namespace std;
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
  public:
+  int maxTurbulenceSize(vector<int>& arr) {
+    int dp1 = 1, dp2 = 1, res = 1;
+    for (int i = 1, stop = arr.size(); i < stop; ++i) {
+      if (arr[i] > arr[i - 1]) {
+        dp1 = dp2 + 1;
+        dp2 = 1;
+      } else if (arr[i] < arr[i - 1]) {
+        dp2 = dp1 + 1;
+        dp1 = 1;
+      } else {
+        dp1 = dp2 = 1;
+      }
+      res = max({res, dp1, dp2});
+    }
+    return res;
+  }
+};
+
+
+
+class Solution_OLD {
+ public:
   int maxTurbulenceSize(vector<int>& A) {
     int dp1 = 1, dp2 = 1, res = 1;
     for (int i = 1, stop = A.size(); i < stop; ++i) {

@@ -25,7 +25,53 @@ using namespace std;
 // input: ["wano(2)","wano(2)","wano(2)","wano(2)"]
 // output: ["wano(2)","wano(2)(1)","wano(2)(2)","wano(2)(3)"]
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-class Solution {
+class Solution {  // 136 ms, just change count to find
+ public:
+  vector<string> getFolderNames(vector<string>& names) {
+    unordered_map<string, int> m;
+    vector<string> res;
+    res.reserve(names.size());
+    for (string &name : names) {
+      if (m.find(name) == m.end()) {
+        m.emplace(name, 1);
+        res.emplace_back(move(name));
+        continue;
+      }
+      int suffix = m[name];
+      string new_name = name + '(' + to_string(suffix) + ')';
+      while (m.count(new_name)) new_name = name + '(' + to_string(++suffix) + ')';
+      m[name] = ++suffix;
+      m.emplace(new_name, 1);
+      res.emplace_back(move(new_name));
+    }
+    return res;
+  }
+};
+
+class Solution_count {  // 260 ms
+ public:
+  vector<string> getFolderNames(vector<string>& names) {
+    unordered_map<string, int> m;
+    vector<string> res;
+    res.reserve(names.size());
+    for (string &name : names) {
+      if (m.count(name) == 0) {
+        m.emplace(name, 1);
+        res.emplace_back(move(name));
+        continue;
+      }
+      int suffix = m[name];
+      string new_name = name + '(' + to_string(suffix) + ')';
+      while (m.count(new_name)) new_name = name + '(' + to_string(++suffix) + ')';
+      m[name] = ++suffix;
+      m.emplace(new_name, 1);
+      res.emplace_back(move(new_name));
+    }
+    return res;
+  }
+};
+
+class Solution_same_as_count {
  public:
   vector<string> getFolderNames(vector<string>& names) {
     unordered_map<string, int> m;

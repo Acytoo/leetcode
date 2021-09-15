@@ -24,6 +24,24 @@ static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
  public:
   vector<TreeNode*> findDuplicateSubtrees(TreeNode* root) {
+    vector<TreeNode*> res;
+    unordered_map<string, int> m;
+    function<string(TreeNode*)> serialize_helper = [&] (TreeNode *cur) -> string {
+      if (!cur) return "#";
+      string txt = to_string(cur->val) + '-'
+                   + serialize_helper(cur->left) + '-'
+                   + serialize_helper(cur->right);
+      if (++m[txt] == 2) res.push_back(cur);
+      return txt;
+    };
+    serialize_helper(root);
+    return res;
+  }
+};
+
+class Solution_OLD {
+ public:
+  vector<TreeNode*> findDuplicateSubtrees(TreeNode* root) {
     unordered_map<string, int> counts;
     vector<TreeNode*> res;
     serialize(root, res, counts);
