@@ -20,7 +20,24 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
+static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
+ public:
+  int findMaxConsecutiveOnes(vector<int>& nums) {
+    int res = 0, cur = 0;
+    for (const int a : nums) {
+      if (a == 1) {
+        ++cur;
+      } else {
+        res = max(res, cur);
+        cur = 0;
+      }
+    }
+    return max(res, cur);
+  }
+};
+
+class Solution_OLD {
  public:
   int findMaxConsecutiveOnes(vector<int>& nums) {
     int res = 0, l = -1, i = 0;

@@ -51,8 +51,8 @@ class MedianFinder {
     return static_cast<double>(l_.top() + r_.top()) / 2.0;
   }
  private:
-  priority_queue<int, vector<int>, less<int>> l_;
-  priority_queue<int, vector<int>, greater<int>> r_;
+  priority_queue<int, vector<int>, less<int>> l_;  // max heap
+  priority_queue<int, vector<int>, greater<int>> r_;  // min heap
 };
 
 /**
