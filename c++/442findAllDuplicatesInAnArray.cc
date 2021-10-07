@@ -5,6 +5,21 @@ using namespace std;
 class Solution {
  public:
   vector<int> findDuplicates(vector<int>& nums) {
+    vector<int> res;
+    for (int i = 0, stop = nums.size(); i < stop; ++i) {
+      int idx = abs(nums[i]) - 1;
+      if (nums[idx] < 0)
+        res.emplace_back(abs(idx + 1));
+      else
+        nums[idx] = -nums[idx];
+    }
+    return res;
+  }
+};
+
+class Solution_OLD {
+ public:
+  vector<int> findDuplicates(vector<int>& nums) {
     vector <int> res;
     for (int i=0; i < nums.size(); ++i) {
       int index = abs(nums[i]) - 1;
