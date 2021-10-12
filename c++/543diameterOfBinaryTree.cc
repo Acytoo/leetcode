@@ -25,13 +25,12 @@ class Solution {
   int diameterOfBinaryTree(TreeNode* root) {
     int res = 0;
     function<int(TreeNode*)> helper = [&] (TreeNode* cur) -> int {
-                                        if (!cur)
-                                          return -1;
-                                        int l = helper(cur->left) + 1;
-                                        int r = helper(cur->right) + 1;
-                                        res = max(res, l+r);
-                                        return max(l, r);
-                                      };
+      if (!cur) return -1;
+      int l = helper(cur->left) + 1;
+      int r = helper(cur->right) + 1;
+      res = max(res, l + r);
+      return max(l, r);
+    };
     helper(root);
     return res;
   }
