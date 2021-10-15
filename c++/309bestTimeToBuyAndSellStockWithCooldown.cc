@@ -22,8 +22,29 @@ using namespace std;
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 // DP
 // stock(money) held in day i : max(buy[i-1], cooldown[i-1]-prices[i])
+class Solution {
+ public:
+  int maxProfit(vector<int>& prices) {
+    const int n = prices.size();
+    if (n <= 1) return 0;
+    int hold[n], sold[n], cooldown[n];
+    memset(hold, 0, sizeof sold);
+    memset(sold, 0, sizeof sold);
+    memset(cooldown, 0, sizeof sold);
+    hold[0] = -prices[0];
+    for (int i = 1; i < n; ++i) {
+      cooldown[i] = sold[i - 1];
+      sold[i] = max(sold[i -1], hold[i - 1] + prices[i]);
+      hold[i] = max(hold[i - 1], cooldown[i - 1] - prices[i]);
+    }
+    return max(sold[n - 1], cooldown[n - 1]);
+  }
+};
 
-class Solution1 {
+
+
+
+class Solution1_OLD {
  public:
   int maxProfit(vector<int>& prices) {
     int n = prices.size();
@@ -39,8 +60,9 @@ class Solution1 {
     return max(sell.back(), cooldown.back());
   }
 };
+
 // 滚动数组降维
-class Solution {
+class Solution_OLD {
  public:
   int maxProfit(vector<int>& p) {
     int sold = 0, rest = 0, hold = INT_MIN;

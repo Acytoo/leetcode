@@ -4,6 +4,37 @@ using namespace std;
 
 
 static int x = [](){ std::ios::sync_with_stdio(false); std::cin.tie(0); return 0; } ();
+// Math: Lagrange's four-square theorem
+class Solution {
+ public:
+  int numSquares(int n) {
+    while (n % 4 == 0) n /= 4;
+    if (n % 8 == 7) return 4;
+    for (int a = 0, a2 = a * a; a2 <= n; ++a, a2 = a * a) {
+      int b = sqrt(n - a2);
+      if (a2 + b * b == n)
+        return !!a + !!b;
+    }
+    return 3;
+  }
+};
+
+// DP dp[i] = min(dp[i - j] + 1), j is some square
+class Solution_DP {
+ public:
+  int numSquares(int n) {
+    // if (pow(static_cast<int>(sqrt(n)), 2) == n) return 1;
+    vector<int> dp (n + 1, INT_MAX >> 1);
+    dp[0] = 0;
+    for (int i = 1; i <= n; ++i)
+      for (int j = 1, j2 = j * j; j2 <= i; ++j, j2 = j * j)
+        dp[i] = min(dp[i], dp[i - j2] + 1);
+    return dp[n];
+  }
+};
+
+
+
 //Since the result is in [1,2,3,4]
 /*
   1: 1, 4, 9, 16, ....
@@ -15,7 +46,7 @@ static int x = [](){ std::ios::sync_with_stdio(false); std::cin.tie(0); return 0
   n^2 : 1
   rest : 3
 */
-class Solution {
+class Solution_OLD {
  public:
   int numSquares(int n) {
     if (pow(floor(sqrt(n)), 2) == n) return 1;
@@ -33,7 +64,7 @@ class Solution {
 
 
 //DP solution
-class Solution1 {
+class Solution1_OLD {
  public:
   int numSquares(int n) {
     int a[n + 1] = {0};
