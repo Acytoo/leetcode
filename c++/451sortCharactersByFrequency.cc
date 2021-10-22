@@ -1,5 +1,4 @@
 #include <stdio.h>
-
 #include <iostream>
 #include <vector>
 #include <string>
@@ -18,10 +17,23 @@
 
 using namespace std;
 
-// static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-
-
+static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
+ public:
+  string frequencySort(string s) {
+    unordered_map<int, int> m;
+    for (const char c : s) ++m[c];
+    vector<pair<int, int>> vec;
+    for(auto &[k, v] : m) vec.emplace_back(make_pair(v, k));
+    sort(vec.rbegin(), vec.rend());
+    string res = "";
+    for (const auto &[n, c] : vec)
+      res += string(n, c);
+    return res;
+  }
+};
+
+class Solution_OLD {
  public:
   string frequencySort(string s) {
     unordered_map<char, int> dict;
