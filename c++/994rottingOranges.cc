@@ -19,9 +19,55 @@
 #include <utility>
 using namespace std;
 
+// m == grid.length
+// n == grid[i].length
+// 1 <= m, n <= 10
+// grid[i][j] is 0, 1, or 2.
+
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-// Brute force, or you can call it simulation
 class Solution {
+ public:
+  int orangesRotting(vector<vector<int>>& grid) {
+    const int m = grid.size(), n = grid[0].size();
+    constexpr int dirs[] = {0, -1, 0, 1, 0};
+    auto rot = [&] (const int x, const int y) -> bool {
+      bool new_rot = false;
+      for (int i = 0; i < 4; ) {
+        int nx = x + dirs[i], ny = y + dirs[++i];
+        if (nx < 0 || nx >= m || ny < 0 || ny >= n) continue;
+        if (grid[nx][ny] == 1) {
+          grid[nx][ny] = 22;
+          new_rot = true;
+        }
+      }
+      return new_rot;
+    };
+    int res = 0;
+    bool new_rot = false;
+    do {
+      new_rot = false;
+      for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
+          if (grid[i][j] == 2)
+            new_rot |= rot(i, j);
+        }
+      }
+      if (new_rot) {
+        ++res;
+        for (int i = 0; i < m; ++i)
+          for (int j = 0; j < n; ++j)
+            if (grid[i][j] == 22) grid[i][j] = 2;
+      }
+    } while (new_rot);
+    for (int i = 0; i < m; ++i)
+      for (int j = 0; j < n; ++j)
+        if (grid[i][j] == 1) return -1;
+    return res;
+  }
+};
+
+// Brute force, or you can call it simulation
+class Solution1 {
  public:
   int orangesRotting(vector<vector<int>>& grid) {
     const int m = grid.size(), n = grid[0].size();
