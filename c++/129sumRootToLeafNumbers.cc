@@ -19,8 +19,31 @@
 
 using namespace std;
 
+// The number of nodes in the tree is in the range [1, 1000].
+// 0 <= Node.val <= 9
+// The depth of the tree will not exceed 10.
+
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
+ public:
+  int sumNumbers(TreeNode* root) {
+    int res = 0;
+    function<void(TreeNode*, int)> helper = [&] (TreeNode *cur, int fv) {
+      int val = fv * 10 + cur->val;
+      if (!cur->left && !cur->right) {
+        res += val;
+        return;
+      }
+      if (cur->left) helper(cur->left, val);
+      if (cur->right) helper(cur->right, val);
+    };
+    helper(root, 0);
+    return res;
+  }
+};
+
+
+class Solution_OLD {
  public:
   int sumNumbers(TreeNode* root) {
     int res = 0, num = 0;
