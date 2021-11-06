@@ -35,6 +35,21 @@ class Solution {
   }
 };
 
+class Solution_SLOW {  // O(n)
+ public:
+  vector<int> singleNumber(vector<int>& nums) {
+    unordered_map<int, int> m;
+    for (const int a : nums) ++m[a];
+    vector<int> res;
+    for (const auto &[k, v] : m) {
+      if (v == 1)
+        res.push_back(k);
+      if (res.size() == 2) return res;
+    }
+    return res;
+  }
+};
+
 int main() {
   Solution s;
   
