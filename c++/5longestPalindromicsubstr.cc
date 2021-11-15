@@ -1,29 +1,28 @@
 #include <iostream>
 #include <string>
 using namespace std;
-// unfinish yet
+
 static int x = [] () {std::ios::sync_with_stdio(false); std::cin.tie(0); return 0; } ();
 class Solution{
-public:
+ public:
   string longestPalindrome(string s) {
-    int maxLen = 0, tempLen = 0, n = s.size();
-    if ( n < 2)
-      return s;
-    string res = "";
-    for (int i=1; i < s.size(); i++) {
-      if (s[i] == s[i-1]) {
-	int pos = i, j = 0;
-	int left = pos - j, right = pos + j;
-	while (left > 0 && right < n && s[pos-j] == s[pos+j]) j++;
-	if (j > maxLen) {
-	  maxLen = j;
-	  res = s.substring();
-	}
+    const int n = s.size();
+    int start = 0, len = 1;
+    function<int(int, int)> palinLen = [&] (int l, int r) {
+      while (l >= 0 && r < n && s[l] == s[r]) {
+        ++r;
+        --l;
       }
-      else if (s[i-2] == s[i]) {}
-
+      return r - l - 1;
+    };
+    for (int i = 0; i < n; ++i) {
+      int cur = max(palinLen(i, i), palinLen(i, i + 1));
+      if (cur > len) {
+        len = cur;
+        start = i - (len - 1) / 2;
+      }
     }
-    return res;
+    return s.substr(start, len);
   }
 };
 

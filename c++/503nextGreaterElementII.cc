@@ -24,25 +24,27 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-class Solution {
- public:
-  int minStartValue(vector<int>& nums) {
-    int res = 0, sum = 0;
-    for (const int a : nums) {
-      sum += a;
-      res = min(res, sum);
-    }
-    return 1 - res;
-  }
-};
 
-class Solution_OLD {
+class Solution {
+  // Brute force
  public:
-  int minStartValue(vector<int>& nums) {
-    int sum = 0, min_sum = INT_MAX;
-    for (int i = 0, stop = nums.size(); i < stop; ++i)
-      min_sum = min(min_sum, sum += nums[i]);
-    return max(1, 1 - min_sum);
+  vector<int> nextGreaterElements(vector<int>& nums) {
+    const int n = nums.size();
+    vector<int> res;
+    res.reserve(n);
+    for (int i = 0; i < n; ++i) {
+      int j = i + 1, k = 0;
+      for (; k < n; ++k) {
+        int jj = k + j;
+        if (jj >= n) jj -= n;
+        if (nums[jj] > nums[i]) {
+          res.emplace_back(nums[jj]);
+          break;
+        }
+      }
+      if (k == n) res.emplace_back(-1);
+    }
+    return res;
   }
 };
 
