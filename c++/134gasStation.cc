@@ -4,8 +4,24 @@ using namespace std;
 
 
 static int x = [](){ std::ios::sync_with_stdio(false); std::cin.tie(0); return 0; } ();
-
 class Solution {
+ public:
+  int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+    int res = 0, net = 0, has = 0;
+    for (int i = 0, n = gas.size(); i < n; ++i) {
+      const int cur_net = gas[i] - cost[i];
+      has += cur_net;
+      net += cur_net;
+      if (has < 0) {
+        has = 0;
+        res = i + 1;
+      }
+    }
+    return net < 0 ? -1 : res;
+  }
+};
+
+class Solution_OLD {
  public:
   int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
     int res = -1, gasRest = 0, costMost = 0;

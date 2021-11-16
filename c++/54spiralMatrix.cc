@@ -24,7 +24,102 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-class Solution {
+class Solution {  // same as original, with little optimization
+ public:
+  vector<int> spiralOrder(vector<vector<int>>& matrix) {
+    const int m = matrix.size(), n = matrix[0].size();
+    vector<int> res;
+    int left = m * n;
+    res.reserve(left);
+    int dir = 0;
+    int i = 0, j = 0;
+    while (left > 0) {
+      res.emplace_back(matrix[i][j]);
+      matrix[i][j] = 111;
+      --left;
+      switch (dir) {
+        case 0:
+          if (++j >= n || matrix[i][j] > 100) { --j; ++i; dir = 1; }
+          break;
+        case 1:
+          if (++i >= m || matrix[i][j] > 100) { --i; --j; dir = 2; }
+          break;
+        case 2:
+          if (--j < 0 || matrix[i][j] > 100) { ++j; --i; dir = 3; }
+          break;
+        case 3:
+          if (--i < 0 || matrix[i][j] > 100) { ++i; ++j; dir = 0; }
+      }
+    }
+    return res;
+  }
+};
+
+class Solution_ORIGINAL {
+ public:
+  vector<int> spiralOrder(vector<vector<int>>& matrix) {
+    const int m = matrix.size(), n = matrix[0].size();
+    vector<int> res;
+    int left = m * n;
+    res.reserve(left);
+    int dir = 0;
+    int i = 0, j = 0;
+    res.emplace_back(matrix[i][j]);
+    matrix[i][j] = 111;
+    --left;
+    while (left > 0) {
+      switch (dir) {
+        case 0:
+          ++j;
+          if (j >= n || matrix[i][j] > 100) {
+            --j;
+            ++dir;
+          } else {
+            res.emplace_back(matrix[i][j]);
+            matrix[i][j] = 111;  // mark that cell
+            --left;
+          }
+          break;
+        case 1:
+          ++i;
+          if (i >= m || matrix[i][j] > 100) {
+            --i;
+            ++dir;
+          } else {
+            res.emplace_back(matrix[i][j]);
+            matrix[i][j] = 111;
+            --left;
+          }
+          break;
+        case 2:
+          --j;
+          if (j < 0 || matrix[i][j] > 100) {
+            ++j;
+            ++dir;
+          } else {
+            res.emplace_back(matrix[i][j]);
+            matrix[i][j] = 111;
+            --left;
+          }
+          break;
+        case 3:
+          --i;
+          if (i < 0 || matrix[i][j] > 100) {
+            ++i;
+            dir = 0;
+          } else {
+            res.emplace_back(matrix[i][j]);
+            matrix[i][j] = 111;
+            --left;
+          }
+      }
+    }
+    return res;
+  }
+};
+
+
+class Solution_OLD {
  public:
   vector<int> spiralOrder(vector<vector<int>>& matrix) {
     const int m = matrix.size();

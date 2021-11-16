@@ -21,6 +21,22 @@ using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
+  // binary search
+ public:
+  int mySqrt(int x) {
+    long l = 1, r = static_cast<long>(x) + 1;
+    while (l < r) {
+      const long m = l + (r - l) / 2;
+      if (m * m <= x)
+        l = m + 1;
+      else
+        r = m;
+    }
+    return l - 1;
+  }
+};
+
+class Solution_OLD {
  public:
   int mySqrt(int x) {
     long l = 1, r = static_cast<long> (x) + 1;

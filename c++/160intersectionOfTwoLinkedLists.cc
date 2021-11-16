@@ -18,6 +18,7 @@
 
 
 using namespace std;
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -31,11 +32,10 @@ static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
  public:
   ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-    ListNode* a = headA;
-    ListNode* b = headB;
-    while (a != b) {
-      p = p != nullptr ? p->next: headB;
-      q = q != nullptr ? q->next: headA;
+    ListNode *p = headA, *q = headB;
+    while (p != q) {
+      p = p ? p->next : headB;
+      q = q ? q->next : headA;
     }
     return p;
   }

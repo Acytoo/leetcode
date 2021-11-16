@@ -23,8 +23,44 @@
 
 using namespace std;
 
+// 能够进一个子集的一定是等比数列中的某几项，所以可以将所有的数都放进set，
+// 然后从1开始每次乘上一个数，做为公比，看看哪些数可以在一个子集中。
+// 但是这种方法时间复杂度太大。
+
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
+ public:
+  vector<int> largestDivisibleSubset(vector<int>& nums) {
+    const int n = nums.size();
+    vector<int> lens(n);
+    int cur_len = 0, last = 0;
+    vector<int> parent(n);
+    sort(nums.begin(), nums.end());
+    for (int i = 0; i < n; ++i) {
+      for (int j = 0; j < i; ++j) {
+        if (nums[i] % nums[j] == 0) {
+          if (lens[i] < lens[j] + 1) {
+            lens[i] = lens[j] + 1;
+            parent[i] = j;
+          }
+        }
+      }
+      if (lens[i] > cur_len) {
+        cur_len = lens[i];
+        last = i;
+      }
+    }
+    vector<int> res;
+    res.reserve(cur_len);
+    for (int i = 0; i <= cur_len; ++i) {
+      res.emplace_back(nums[last]);
+      last = parent[last];
+    }
+    return res;
+  }
+};
+
+class Solution_OLD {
  public:
   vector<int> largestDivisibleSubset(vector<int>& nums) {
     if (nums.empty()) return {};
