@@ -20,6 +20,23 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
+class Solution {
+ public:
+  bool isHappy(int n) {
+    unordered_set<int> s;
+    while (s.find(n) == s.end()) {
+      s.insert(n);
+      int tmp = 0;
+      while (n > 0) {
+        const int digit = n % 10;
+        tmp += digit * digit;
+        n /= 10;
+      }
+      n = tmp;
+    }
+    return n == 1;
+  }
+};
 
 class Solution_set {
  public:
@@ -43,7 +60,7 @@ class Solution_set {
   }
 };
 
-class Solution {
+class Solution_OLD {
  public:
   // math: "happy number" will cycle with (1) or (4,16,37,58,89,145,42,20,4,...)
   bool isHappy(int n) {

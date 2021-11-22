@@ -24,6 +24,26 @@ class Solution {
     int z = x ^ y;
     int res = 0;
     while (z != 0) {
+      res += (z & 1);
+      z >>= 1;
+    }
+    return res;
+  }
+};
+
+class Solution_builtin {
+ public:
+  int hammingDistance(int x, int y) {
+    return __builtin_popcount(x ^ y);
+  }
+};
+
+class Solution2 {
+ public:
+  int hammingDistance(int x, int y) {
+    int z = x ^ y;
+    int res = 0;
+    while (z != 0) {
       z &= (z-1);
       res++;
     }

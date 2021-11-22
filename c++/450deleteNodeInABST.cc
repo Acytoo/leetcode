@@ -27,8 +27,47 @@ using namespace std;
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
+ public:
+  TreeNode* deleteNode(TreeNode* root, int key) {
+    TreeNode dummy(-1);
+    dummy.left = root;
+    TreeNode *f = &dummy;
+    TreeNode *par = nullptr;
+    TreeNode *del = nullptr;
+    function<bool(TreeNode*, TreeNode*)> search = [&] (TreeNode *cur, TreeNode *f) {
+      if (!cur) return false;
+      if (cur->val == key) {
+        del = cur;
+        par = f;
+        return true;
+      }
+      return search(cur->left, cur) || search(cur->right, cur);
+    };
+    if (!search(root, f)) return root;
+    TreeNode *l = del->left;
+    if (par->left && key == par->left->val) {
+      par->left = del->right;
+      while (par->left) par = par->left;
+      par->left = l;
+    } else {
+      par->right = del->right;
+      if (par->right) {
+        par = par->right;
+        while (par->left) par = par->left;
+        par->left = l;
+      } else {
+        par->right = l;
+      }
+    }
+    return dummy.left;
+  }
+};
+
+
+class Solution_OLD {
  public:
   TreeNode* deleteNode(TreeNode* root, int key) {
     if (!root)

@@ -14,8 +14,41 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
+class Solution {  // 16 ms
+  // Topological sort
+ public:
+  vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+    vector<vector<int>> g(numCourses);
+    for (const auto &p : prerequisites)
+      g[p[1]].push_back(p[0]);
+    int time = 0;
+    vector<Color> colors(numCourses);
+    vector<int> res(numCourses);
+    int idx = numCourses;
+    function<bool(int)> dfs = [&] (const int x) {
+      colors[x] = GRAY;
+      ++time;
+      for (const auto nxt : g[x]) {
+        if (colors[nxt] == BLACK) continue;
+        if (colors[nxt] == GRAY) return false;
+        if (!dfs(nxt)) return false;
+      }
+      ++time;
+      colors[x] = BLACK;
+      res[--idx] = x;
+      return true;
+    };
+    for (int i = 0; i < numCourses; ++i)
+      if (colors[i] == WHITE && !dfs(i)) return {};
+    return res;
+  }
+ private:
+  enum Color {WHITE, GRAY, BLACK};
+};
+
+
 // 拓扑次序(Topological Order)
-class Solution {
+class Solution_OLD {
  public:
   vector<int> findOrder(int num_courses, vector<vector<int>>& prerequisites) {
     graph_  = vector<vector<int>>(num_courses);  // init graph size

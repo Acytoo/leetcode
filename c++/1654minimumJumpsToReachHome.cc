@@ -23,34 +23,38 @@
 
 using namespace std;
 
+// 1 <= forbidden.length <= 1000
+// 1 <= a, b, forbidden[i] <= 2000
+// 0 <= x <= 2000
+// All the elements in forbidden are distinct.
+// Position x is not forbidden.
+// 注意 loc > 8000 这个条件，可以走一步返回一步，a < b
+
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-// Copy from huahua, modified kMaxposition
 class Solution {
  public:
   int minimumJumps(vector<int>& forbidden, int a, int b, int x) {
-    constexpr int kMaxPosition = 8000;
-    if (x == 0) return 0;
-    queue<pair<int, bool>> q{{{0, true}}};
-    unordered_set<int> seen1, seen2;
-    for (int f : forbidden) seen1.insert(f), seen2.insert(f);
-    seen1.insert(0);
-    int steps = 0;
-    while (!q.empty()) {
-      int size = q.size();
-      while (size--) {
-        auto [cur, forward] = q.front(); q.pop();
-        if (cur == x) return steps;
-        if (cur > kMaxPosition) continue; // no way to go back
-        if (seen1.insert(cur + a).second)
-          q.emplace(cur + a, true);
-        if (cur - b >= 0 && forward && seen2.insert(cur - b).second)
-          q.emplace(cur - b, false);
+    unordered_set<int> been1, been2;
+    for (const int f : forbidden) { been1.insert(f); been2.insert(f); }
+    deque<pair<int, bool>> dq = {{0, true}};  // axis, can back
+    int res = 0;
+    while (!dq.empty()) {
+      int sz = dq.size();
+      while (--sz >= 0) {
+        auto [loc, can] = dq.front(); dq.pop_front();
+        if (loc == x) return res;
+        if (loc > 8000) continue;
+        if (been1.insert(loc + a).second)
+          dq.emplace_back(loc + a, true);
+        if (loc - b > 0 && can && been2.insert(loc - b).second)
+          dq.emplace_back(loc - b, false);
       }
-      ++steps;
+      ++res;
     }
     return -1;
   }
 };
+
 
 int main() {
   Solution s;
