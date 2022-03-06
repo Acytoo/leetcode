@@ -22,6 +22,48 @@ using namespace std;
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
  public:
+  string validIPAddress(string queryIP) {
+    if (queryIP.size() == 0 || queryIP.back() == '.' || queryIP.back() == ':') return "Neither";
+    istringstream ip(queryIP);
+    string cur = "";
+    int count = 0;
+
+    auto ipv4 = [&] () {
+      if (queryIP.find('.') == string::npos) return false;
+      while (getline(ip, cur, '.')) {
+        ++count;
+        if (count > 4 || cur.empty() || cur.size() > 3 || (cur.size() > 1 && cur[0] == '0'))
+          return false;
+        int val = 0;
+        for (const char c : cur) {
+          const int digit = c - '0';
+          if (digit > 9) return false;
+          val = val * 10 + digit;
+        }
+        if (val > 255) return false;
+      }
+      return count == 4;
+    };
+    auto ipv6 = [&] () {
+      if (queryIP.find(':') == string::npos) return false;
+      while (getline(ip, cur, ':')) {
+        ++count;
+        if (count > 8 || cur.empty() || cur.size() > 4) return false;
+        for (const char c : cur)
+          if (!((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')))
+            return false;
+      }
+      return count == 8;
+    };
+
+    if (ipv4()) return "IPv4";
+    if (ipv6()) return "IPv6";
+    return "Neither";
+  }
+};
+
+class Solution_OLD {
+ public:
   string validIPAddress(string IP) {
     if (IP.empty() || IP.back()=='.' || IP.back()==':')
       return "Neither";

@@ -30,6 +30,37 @@ using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
+ public:
+  ListNode* mergeKLists(vector<ListNode*>& lists) {
+    function<ListNode*(ListNode*, ListNode *)> merge =[&] (ListNode *l, ListNode * r) {
+      ListNode dummy(-1);
+      ListNode *res = &dummy;
+      while (l && r) {
+        if (l->val < r->val) {
+          res->next = l;
+          l = l->next;
+        } else {
+          res->next = r;
+          r = r->next;
+        }
+        res = res->next;
+      }
+      if (l) res->next = l;
+      if (r) res->next = r;
+      return dummy.next;
+    };
+    function<ListNode*(int, int)> divide = [&] (const int l, const int r) {
+      if (l == r) return lists[l];
+      if (l == r - 1) return merge(lists[l], lists[r]);
+      const int m = l + (r - l) / 2;
+      return merge(divide(l, m), divide(m + 1, r));
+    };
+    if (lists.empty()) return nullptr;
+    return divide(0, lists.size() - 1);
+  }
+};
+
+class Solution {
   // Divide and Conquer
  public:
   ListNode* mergeKLists(vector<ListNode*>& lists) {

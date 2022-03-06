@@ -27,12 +27,21 @@ static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
  public:
   void rotate(vector<vector<int>>& m) {
+    for (int i = 0, n = m.size(); i < n; ++i)
+      for (int j = i + 1; j < n; ++j)
+        swap(m[i][j], m[j][i]);
+    for (auto &row : m) reverse(row.begin(), row.end());
+  }
+};
+
+class Solution1 {  // brute force
+ public:
+  void rotate(vector<vector<int>>& m) {
     int n = m.size();
-    // int top = 0, bottom = n - 1, left = 0, right = n - 1;
-    int t = 0, b = n - 1, l = 0, r = b;
+    int t = 0, b = n - 1, l = 0, r = n - 1;
     while (n > 1) {
       for (int i = 0, stop = n - 1; i < stop; ++i) {
-        int tmp = m[t][l + i];
+        const int tmp = m[t][l + i];
         m[t][l + i] = m[b - i][l];
         m[b - i][l] = m[b][r - i];
         m[b][r - i] = m[t + i][r];

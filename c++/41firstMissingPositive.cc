@@ -10,46 +10,15 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-//solution one: scan 3 times, <0 -> 0, > n -> pass, else -> neg, then first >0
-//solution two scan 2 times switch
-class Solution {
-public:
-  int firstMissingPositive(vector<int>& nums) {
-    int n = nums.size();
-    if (n == 0) return 1;
-
-    for(int i = 0; i < n;)
-      if(nums[i] > 0 && nums[i] < n && nums[nums[i] - 1] != nums[i] && nums[i]-1!= i)
-        swap(nums[i], nums[nums[i] - 1]);
-      else
-        ++i;
-
-    for(int i = 0; i < n; )
-      if(nums[i] != ++i)
-        return i;
-
-    return n + 1;
-  }
-};
-
-
-// awsome solution from leetcode and run's 0ms !!! and then I changeeeeeeeeeee it...
 class Solution1 {
-public:
+ public:
   int firstMissingPositive(vector<int>& nums) {
-    if(nums.size() == 0) return 1;
-    for(int i = 0;i<nums.size();){
-      if(nums[i]>0 && nums[i]<nums.size() && nums[i]-1!= i && nums[nums[i]-1] != nums[i])//123 2
-        {
-          swap(nums[nums[i]-1],nums[i]);
-        }else i++;
-    }
-
-    for(int i = 0;i<nums.size();i++){
-      if(nums[i]-1 != i) return i+1;
-    }
-    if(nums[nums.size()-1] == nums.size()) return nums.size()+1;
-    return 1;
+    for (int i = 0, n = nums.size(); i < n; ++i)
+      while (nums[i] > 0 && nums[i] <= n && nums[nums[i] - 1] != nums[i])
+        swap(nums[i], nums[nums[i] - 1]);
+    for (int i = 0, n = nums.size(); i < n; )
+      if (nums[i] != ++i) return i;
+    return nums.size() + 1;
   }
 };
 
