@@ -17,16 +17,24 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-
-
-int main() {
-  Solution s;
-  
-  return 0;
-}
-
 class Solution {
-public:
+ public:
+  vector<int> topKFrequent(vector<int>& nums, int k) {
+    unordered_map<int, int> m;
+    for (auto a : nums) ++m[a];
+    vector<pair<int, int>> vec(m.begin(), m.end());
+    sort(vec.begin(), vec.end(), [] (const auto &a, const auto &b) {
+      return a.second > b.second;
+    });
+    vector<int> res;
+    res.reserve(k);
+    while (--k >= 0) res.emplace_back(vec[k].first);
+    return res;
+  }
+};
+
+class Solution_OLD {
+ public:
   vector<int> topKFrequent(vector<int>& nums, int k) {
     unordered_map<int, int> m;
     for (auto i: nums) {
@@ -41,8 +49,8 @@ public:
       tmp.emplace_back(move(i));
 
     sort(tmp.begin(), tmp.end(), [=](const pair<int, int>& a, const pair<int, int>& b) {
-                                   return a.second > b.second;
-                                 });
+      return a.second > b.second;
+    });
     vector<int> res(k);
     int i=0;
     auto it = tmp.begin();
@@ -54,3 +62,10 @@ public:
     return res;
   }
 };
+
+
+int main() {
+  Solution s;
+
+  return 0;
+}
