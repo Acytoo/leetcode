@@ -4,40 +4,34 @@
 using namespace std;
 
 class MyStack {
- private:
-  queue <int> fakeStack;
-
  public:
-  /** Initialize your data structure here. */
-  MyStack() {}
-    
-  /** Push element x onto stack. */
+  MyStack() { }
+
   void push(int x) {
-    fakeStack.push(x);
+    q_.push(x);
   }
-    
-  /** Removes the element on top of the stack and returns that element. */
+
   int pop() {
-    int len = fakeStack.size();
-    for(int i = 0, stop = fakeStack.size() - 1; i < stop; ++i) {
-      int tmp = fakeStack.front();
-      fakeStack.pop();
-      fakeStack.push(tmp);
+    int n = q_.size() - 1;
+    for (int i = 0; i < n; ++i) {
+      const int tmp = q_.front(); q_.pop();
+      q_.push(tmp);
     }
-    int res = fakeStack.front();
-    fakeStack.pop();
+    const int res = q_.front(); q_.pop();
     return res;
   }
-    
-  /** Get the top element. */
+
   int top() {
-    return fakeStack.back();
+    const int res = this->pop();
+    this->push(res);
+    return res;
   }
-    
-  /** Returns whether the stack is empty. */
+
   bool empty() {
-    return fakeStack.empty();
+    return q_.empty();
   }
+ private:
+  queue<int> q_;
 };
 
 /**
