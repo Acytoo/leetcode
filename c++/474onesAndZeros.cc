@@ -23,6 +23,22 @@ static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
  public:
   int findMaxForm(vector<string>& strs, int m, int n) {
+    vector<vector<int>> dp(m + 1, vector<int>(n + 1));
+    for (const string &str : strs) {
+      int ones = 0;
+      for (const char c : str) ones += (c == '1');
+      int zeros = str.size() - ones;
+      for (int i = m; i >= zeros; --i)
+        for (int j = n; j >= ones; --j)
+          dp[i][j] = max(dp[i][j], dp[i - zeros][j - ones] + 1);
+    }
+    return dp.back().back();
+  }
+};
+
+class Solution_OLD {
+ public:
+  int findMaxForm(vector<string>& strs, int m, int n) {
     vector<vector<int>> dp (m+1, vector<int> (n+1, 0));
     for (const string& str: strs) {
       bitset<600> s (str);

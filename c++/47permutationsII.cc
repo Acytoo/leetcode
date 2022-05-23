@@ -27,6 +27,34 @@ static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
  public:
   vector<vector<int>> permuteUnique(vector<int>& nums) {
+    const int n = nums.size();
+    sort(nums.begin(), nums.end());
+    vector<vector<int>> res;
+    vector<int> cur;
+    bitset<8> used;
+    function<void(void)> dfs = [&] () {
+      if (cur.size() == n) {
+        res.push_back(cur);
+        return;
+      }
+      for (int i = 0; i < n; ++i) {
+        if (used[i]) continue;
+        if (i && nums[i] == nums[i - 1] && !used[i - 1]) continue;
+        used[i] = 1;
+        cur.emplace_back(nums[i]);
+        dfs();
+        cur.pop_back();
+        used[i] = 0;
+      };
+    };
+    dfs();
+    return res;
+  }
+};
+
+class Solution_OLD {
+ public:
+  vector<vector<int>> permuteUnique(vector<int>& nums) {
     sort(nums.begin(), nums.end());
     const int n = nums.size();
     vector<vector<int>> res;
@@ -40,7 +68,7 @@ class Solution {
           }
           for (int i = 0; i < n; ++i) {
             if (used[i]) continue;
-            if (i && nums[i] == nums[i - 1] && !used[i -1]) continue;
+            if (i && nums[i] == nums[i - 1] && !used[i - 1]) continue;
             used[i] = true;
             cur.emplace_back(nums[i]);
             dfs();

@@ -18,7 +18,6 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-
 class Solution {
  public:
   int longestIncreasingPath(vector<vector<int>>& matrix) {
@@ -29,16 +28,16 @@ class Solution {
     // int dp[rows][cols] = {{0}};
     vector<vector<int>> dp (rows, vector<int>(cols, 0));
     function<int(int, int)> dfs = [&] (int x, int y) {
-                                    if (dp[x][y]) return dp[x][y];
-                                    vector<vector<int>> dirs = {{-1, 0}, {1, 0}, {0, 1}, {0,-1}};
-                                    for (auto &dir : dirs) {
-                                      int xx = x + dir[0], yy = y + dir[1];
-                                      if (xx < 0 || xx >= rows || yy < 0 || yy >= cols) continue;
-                                      if (matrix[xx][yy] <= matrix[x][y]) continue;
-                                      dp[x][y] = max(dp[x][y], dfs(xx, yy));
-                                    }
-                                    return ++dp[x][y];
-                                  };
+      if (dp[x][y]) return dp[x][y];
+      vector<vector<int>> dirs = {{-1, 0}, {1, 0}, {0, 1}, {0,-1}};
+      for (auto &dir : dirs) {
+        int xx = x + dir[0], yy = y + dir[1];
+        if (xx < 0 || xx >= rows || yy < 0 || yy >= cols) continue;
+        if (matrix[xx][yy] <= matrix[x][y]) continue;
+        dp[x][y] = max(dp[x][y], dfs(xx, yy));
+      }
+      return ++dp[x][y];
+    };
 
     int res = 0;
     for (int i = 0; i < rows; ++i) {
@@ -46,7 +45,6 @@ class Solution {
         res = max(res, dfs(i, j));
       }
     }
-
     return res;
   }
 };
