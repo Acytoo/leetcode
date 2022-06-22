@@ -28,13 +28,24 @@ using namespace std;
 //0 <= bricks <= 10^9
 //0 <= ladders <= heights.length
 
-static int x = []() {
-  ios::sync_with_stdio(false);
-  cin.tie(0);
-  return 0;
-}();
-
+static int x = []() { ios::sync_with_stdio(false); cin.tie(0); return 0; }();
 class Solution {
+ public:
+  int furthestBuilding(vector<int>& heights, int bricks, int ladders) {
+    priority_queue<int, vector<int>, greater<int>> pq;
+    for (int i = 0, n = heights.size() - 1; i < n; ++i) {
+      const int diff = heights[i + 1] - heights[i];
+      if (diff <= 0) continue;
+      pq.push(diff);
+      if (pq.size() <= ladders) continue;
+      if ((bricks -= pq.top()) < 0) return i;
+      pq.pop();
+    }
+    return heights.size() - 1;
+  }
+};
+
+class Solution_OLD {
   // Priority queue
  public:
   int furthestBuilding(vector<int> &heights, int bricks, int ladders) {

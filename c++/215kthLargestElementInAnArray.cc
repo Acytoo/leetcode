@@ -20,8 +20,25 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-// Solutions from leetcode
+class Solution {
+ public:
+  int findKthLargest(vector<int>& nums, int k) {
+    priority_queue<int, vector<int>, greater<int>> pq;
+    for (const int a : nums) {
+      if (pq.size() < k) {
+        pq.push(a);
+        continue;
+      }
+      if (pq.top() < a) {
+        pq.push(a);
+        pq.pop();
+      }
+    }
+    return pq.top();
+  }
+};
 
+// Solutions from leetcode
 class Solution_quickselect {  // O(n^2), average O(n)
  public:
   int findKthLargest(vector<int>& nums, int k) {
@@ -94,17 +111,10 @@ class Solution_partition {  // O(n)
   }
 
   static inline void swap(vector<int>& nums, int l, int r) {
-    // int tmp = nums[l];
-    // nums[l] = nums[r];
-    // nums[r] = tmp;
     if (l == r) return ;
-    // xor not working when l = r, make that number 0
-    // cout << "size " << nums.size() << " l " << l << " r " << r << endl;
-    // cout << "before " << nums[l] << " " << nums[r] << endl;
     nums[l] ^= nums[r];
     nums[r] ^= nums[l];
     nums[l] ^= nums[r];
-    // cout << "after " << nums[l] << " " << nums[r] << endl;
   }
 
 };
