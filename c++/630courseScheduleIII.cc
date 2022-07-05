@@ -24,20 +24,19 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
-// Greedy
 class Solution {
  public:
   int scheduleCourse(vector<vector<int>>& courses) {
     sort(courses.begin(), courses.end(), [&] (const auto &a, const auto &b) {
       return a[1] < b[1];
     });
-    int cur = 0;
-    priority_queue<int> pq;
+    int cur_day = 0;
+    priority_queue<int, vector<int>, less<int>> pq;
     for (const auto &c : courses) {
-      cur += c[0];
+      cur_day += c[0];
       pq.push(c[0]);
-      if (c[1] < cur) {
-        cur -= pq.top();
+      if (cur_day > c[1]) {
+        cur_day -= pq.top();
         pq.pop();
       }
     }

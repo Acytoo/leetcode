@@ -13,9 +13,24 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
+// From huahua
+class Solution {
+ public:
+  int longestConsecutive(vector<int>& nums) {
+    unordered_set<int> h(nums.begin(), nums.end());
+    int ans = 0;
+    for (int num : nums)
+      if (!h.count(num - 1)) {
+        int l = 0;
+        while (h.count(num++)) ++l;
+        ans = max(ans, l);
+      }
+    return ans;
+  }
+};
 
 // Sort first
-class Solution {
+class Solution_SLOW {
 public:
   int longestConsecutive(vector<int>& nums) {
     if (nums.size() == 0) return 0;
