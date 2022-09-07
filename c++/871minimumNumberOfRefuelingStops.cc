@@ -33,7 +33,7 @@ DP
 
 dp[0]:用初始油量所能达到的最远距离
 dp[1]:在一个加油站加油后，所能达到的最远距离
-
+dp[2]:在2个加油站加油后，所能到达的最远距离
 dp[i] = max(dp[i], dp[i - 1] + stations[j][1]), if station j can be reached
 
 

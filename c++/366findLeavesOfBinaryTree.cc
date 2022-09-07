@@ -26,29 +26,26 @@ using namespace std;
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Solution {
  public:
-  bool reachingPoints(int sx, int sy, int tx, int ty) {
-    if (tx < sx || ty < sy) return false;
-    if (tx == sx) return (ty - sy) % sx == 0;
-    if (ty == sy) return (ty - sy) % sy == 0;
-    return reachingPoints(sx, sy, tx % ty, ty % tx);
+  vector<vector<int>> findLeaves(TreeNode* root) {
+    vector<vector<int>> res;
+    function<TreeNode*(TreeNode*)> helper = [&] (TreeNode *cur) -> TreeNode* {
+      if (!cur) return nullptr;
+      if (!cur->left && !cur->right) {
+        res.back().emplace_back(cur->val);
+        return nullptr;
+      }
+      cur->left = helper(cur->left);
+      cur->right = helper(cur->right);
+      return cur;
+    };
+    while(root) {
+      res.emplace_back(vector<int>());
+      root = helper(root);
+    }
+    return res;
   }
 };
 
-class Solution1 {
- public:
-  bool reachingPoints(int sx, int sy, int tx, int ty) {
-    while (tx >= sx && ty >= sy) {
-      if (tx > ty) {
-        if (ty == sy) return (tx - sx) % ty == 0;
-        tx %= ty;
-      } else {
-        if (tx == sx) return (ty - sy) % tx == 0;
-        ty %= tx;
-      }
-    }
-    return tx == sx && ty == sy;
-  }
-};
 
 int main() {
   Solution s;

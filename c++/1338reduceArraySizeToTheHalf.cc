@@ -24,6 +24,21 @@
 using namespace std;
 
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
+class Solution_NEW {
+ public:
+  int minSetSize(vector<int>& arr) {
+    unordered_map<int, int> m;
+    for (const int a : arr) ++m[a];
+    vector<int> occs;
+    for (auto it : m) occs.emplace_back(it.second);
+    sort(occs.rbegin(), occs.rend());
+    int res = 0, del = 0;
+    const int target = arr.size() / 2;
+    while (del < target) del += occs[++res];
+    return res;
+  }
+};
+
 class Solution {
  public:
   int minSetSize(vector<int>& arr) {

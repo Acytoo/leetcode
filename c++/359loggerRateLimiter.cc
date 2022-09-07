@@ -26,6 +26,19 @@ using namespace std;
 static int x = [] () {ios::sync_with_stdio(false); cin.tie(0); return 0;} ();
 class Logger {
  public:
+  Logger() { }
+
+  bool shouldPrintMessage(int timestamp, string message) {
+    if (m_.count(message) && m_[message] > timestamp) return false;
+    m_[message] = timestamp + 10;
+    return true;
+  }
+ private:
+  unordered_map<string_view, int> m_;
+};
+
+class Logger_OLD {
+ public:
   Logger() {
     m_.clear();
   }
